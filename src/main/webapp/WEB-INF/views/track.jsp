@@ -2,6 +2,7 @@
 <div class="container">
 
     ${track.ttitle}
+    ${avgScore}
 
         <form method="POST" action="${contextPath}/track/${track.id}" class="form-signin">
             <div class="form-group">

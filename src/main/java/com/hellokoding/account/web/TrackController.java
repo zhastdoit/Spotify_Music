@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -28,10 +29,25 @@ public class TrackController {
     @Autowired
     private UserService userService;
 
+    @RequestMapping(value = {"/all"}, method = RequestMethod.GET)
+    public String showAllTrack(Model theModel) {
+        List<Track> allTrack = trackService.getTrackList();
+        List<Double> scores = new ArrayList<>();
+        allTrack.forEach((track) -> {
+            Long tid = track.getId();
+            scores.add(trackService.getAverageScore(tid).isPresent() ? trackService.getAverageScore(tid).get() :(Double) 0d);
+        });
+        theModel.addAttribute("trackList", allTrack);
+        theModel.addAttribute("scores", scores);
+        return "tracks";
+    }
+
     @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
     public String getArtistTrack(@PathVariable("id") Long id, Model theModel) {
         Track theTrack = trackService.findById(id);
+        Double score = trackService.getAverageScore(theTrack.getId()).isPresent() ? trackService.getAverageScore(theTrack.getId()).get() : 0d;
         theModel.addAttribute("track", theTrack);
+        theModel.addAttribute("avgScore", score);
         return "track";
     }
 

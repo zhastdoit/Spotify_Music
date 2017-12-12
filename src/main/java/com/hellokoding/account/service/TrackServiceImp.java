@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TrackServiceImp implements TrackService {
@@ -24,6 +25,11 @@ public class TrackServiceImp implements TrackService {
     }
 
     @Override
+    public List<Track> getTrackList() {
+        return trackRepository.findAll();
+    }
+
+    @Override
     public void saveRate(Rate rate) {
         rateRepository.save(rate);
     }
@@ -32,4 +38,12 @@ public class TrackServiceImp implements TrackService {
     public List<Rate> getMyRate(Long uid) {
         return rateRepository.findMyRate(uid);
     }
+
+    @Override
+    public Optional<Double> getAverageScore(Long tid) {
+        return rateRepository.getAverageScore(tid);
+    }
+
+
+
 }

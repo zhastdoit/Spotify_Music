@@ -2,6 +2,7 @@ package com.hellokoding.account.web;
 
 import com.hellokoding.account.model.Rate;
 import com.hellokoding.account.model.User;
+import com.hellokoding.account.service.FindUsername;
 import com.hellokoding.account.service.SecurityService;
 import com.hellokoding.account.service.TrackService;
 import com.hellokoding.account.service.UserService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import com.hellokoding.account.service.FindUsername;
 
 import java.util.List;
 
@@ -71,8 +73,12 @@ public class UserController {
 
     @RequestMapping(value = "/myRate", method = RequestMethod.GET)
     public String showMyRateHistory(Model theModel) {
-        List<Rate> myRateList = trackService.getMyRate()
-        theModel.addAttribute()
+        String username = FindUsername.findLoggedInUsername();
+        User user = userService.findByUsername(username);
+        Long uid = user.getId();
+        List<Rate> myRateList = trackService.getMyRate(uid);
+        theModel.addAttribute("rateList", myRateList);
+        return "myRate";
     }
     
 }
