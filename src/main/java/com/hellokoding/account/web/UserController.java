@@ -1,7 +1,9 @@
 package com.hellokoding.account.web;
 
+import com.hellokoding.account.model.Rate;
 import com.hellokoding.account.model.User;
 import com.hellokoding.account.service.SecurityService;
+import com.hellokoding.account.service.TrackService;
 import com.hellokoding.account.service.UserService;
 import com.hellokoding.account.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 public class UserController {
     @Autowired
@@ -23,6 +27,9 @@ public class UserController {
 
     @Autowired
     private UserValidator userValidator;
+
+    @Autowired
+    private TrackService trackService;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
@@ -62,8 +69,10 @@ public class UserController {
         return "welcome";
     }
 
-//    @RequestMapping(value = "/myRate", method = RequestMethod.GET)
-//    public String showMyRateHistory(Model theModel) {
-//
-//    }
+    @RequestMapping(value = "/myRate", method = RequestMethod.GET)
+    public String showMyRateHistory(Model theModel) {
+        List<Rate> myRateList = trackService.getMyRate()
+        theModel.addAttribute()
+    }
+    
 }

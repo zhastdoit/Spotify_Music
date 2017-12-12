@@ -1,4 +1,4 @@
-     package com.hellokoding.account.repository;
+package com.hellokoding.account.repository;
 
 import com.hellokoding.account.model.Artist;
 import com.hellokoding.account.model.Track;

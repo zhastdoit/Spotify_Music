@@ -4,6 +4,7 @@ import com.hellokoding.account.model.Artist;
 import com.hellokoding.account.model.Rate;
 import com.hellokoding.account.model.Track;
 import com.hellokoding.account.model.User;
+import com.hellokoding.account.service.FindUsername;
 import com.hellokoding.account.service.TrackService;
 import com.hellokoding.account.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,6 @@ public class TrackController {
     @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
     public String getArtistTrack(@PathVariable("id") Long id, Model theModel) {
         Track theTrack = trackService.findById(id);
-
-
         theModel.addAttribute("track", theTrack);
         return "track";
     }
@@ -41,20 +40,12 @@ public class TrackController {
     public String setTrackRate(@PathVariable("id") Long id, @RequestParam("rateScore") int rateScore, Model theModel) {
         Long trackId = id;
         int score = rateScore;
-        String username = findLoggedInUsername();
+        String username = FindUsername.findLoggedInUsername();
         User user = userService.findByUsername(username);
         Long uid = user.getId();
         Rate theRate = new Rate(uid, trackId, score);
         trackService.saveRate(theRate);
         return "redirect:/track/" + id;
-    }
-
-    public String findLoggedInUsername() {
-        org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(user != null) {
-            return user.getUsername();
-        }
-        return null;
     }
 
 
