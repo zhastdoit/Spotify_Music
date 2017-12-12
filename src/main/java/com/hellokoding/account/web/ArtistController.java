@@ -30,6 +30,7 @@ public class ArtistController {
     public String getArtistDetails(@PathVariable("id") Long id, Model theModel) {
         Artist artist = artistService.getArtistById(id);
         List<Track> artistTracks = artistService.getArtistTrackList(artist.getAname());
+        theModel.addAttribute("artist", artist);
         theModel.addAttribute("track", artistTracks);
         return "artist-details";
     }

@@ -1,21 +1,20 @@
 <%@ include file="parts/header.jsp" %>
 <div class="container">
-
-    <table>
+    <h2>Artists</h2>
+    <table class="table table-hover">
         <tr>
-            <th>Artist ID</th>
-            <th>aname</th>
-            <th>description</th>
+            <th>ID</th>
+            <th>Name</th>
+            <%--<th>description</th>--%>
         </tr>
 
         <!-- loop over and print our customers -->
-        <c:forEach var="tempArtist" items="${artist}">
+        <c:forEach var="artist" items="${artist}">
             <tr>
-                <td> ${tempArtist.id} </td>
-                <td> ${tempArtist.aname} </td>
-                <td> ${tempArtist.description} </td>
+                <td><a href="/artist/${artist.id}"> ${artist.id} </td>
+                <td><a href="/artist/${artist.id}"> ${artist.aname} </td>
+                <%--<td><a href="/artist/${artist.id}"> ${artist.description} </td>--%>
             </tr>
-
         </c:forEach>
 
     </table>

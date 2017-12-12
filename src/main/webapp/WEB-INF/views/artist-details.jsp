@@ -1,19 +1,21 @@
 <%@ include file="parts/header.jsp" %>
 <div class="container">
 
-    <table>
+    <h2>${artist.aname}</h2>
+    <p class="lead"> ${artist.description} </p>
+    <table class="table table-hover">
         <tr>
-            <th>Artist ID</th>
-            <th>aname</th>
-            <th>description</th>
+            <th>Name</th>
+            <th>Duration</th>
+            <th>Genre</th>
         </tr>
 
         <!-- loop over and print our customers -->
         <c:forEach var="track" items="${track}">
             <tr>
-                <td><a href=""> ${track.ttitle} </td>
-                <td> ${track.tduration} </td>
-                <td> ${track.genre} </td>
+                <td><a href="/track/${track.id}"> ${track.ttitle} </td>
+                <td><a href="/track/${track.id}"> ${track.tduration} </td>
+                <td><a href="/track/${track.id}"> ${track.genre} </td>
             </tr>
 
         </c:forEach>

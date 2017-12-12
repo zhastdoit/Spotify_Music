@@ -9,7 +9,7 @@
 
     <div>
 
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -19,37 +19,36 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Sppppppotify</a>
+                    <a class="navbar-brand" href="/">Spotify</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <li class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Log Out <span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">Log Out</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">One more separated link</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="/track/all">Tracks<span class="sr-only">(current)</span></a></li>
+                        <li><a href="/artist/all">Artists</a></li>
                     </ul>
                     <form class="navbar-form navbar-left">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input name="content" type="text" class="form-control" placeholder="Search">
                         </div>
-                        <button type="submit" class="btn btn-default">Submit</button>
+                        <%--<button type="submit" class="btn btn-default">Submit</button>--%>
                     </form>
                     <ul class="nav navbar-nav navbar-right">
-
+                        <%--<li class="dropdown">--%>
+                        <%--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>--%>
+                        <%--<ul class="dropdown-menu">--%>
+                        <%--<li><a href="/welcome/#favorite">Favorite Artist</a></li>--%>
+                        <%--<li><a href="#">Another action</a></li>--%>
+                        <%--<li><a href="#">Something else here</a></li>--%>
+                        <%--<li role="separator" class="divider"></li>--%>
+                        <%--<li><a href="#">Separated link</a></li>--%>
+                        <%--<li role="separator" class="divider"></li>--%>
+                        <%--<li><a href="#">One more separated link</a></li>--%>
+                        <%--</ul>--%>
+                        <%--</li> --%>
                         <li><a onclick="document.forms['logoutForm'].submit()">Logout</a></ul></li>
-                </ul>
+                    </ul>
             </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
     </nav>
