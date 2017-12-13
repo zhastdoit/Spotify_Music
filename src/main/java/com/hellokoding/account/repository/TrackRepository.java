@@ -9,5 +9,4 @@ import java.util.List;
 
 public interface TrackRepository extends JpaRepository<Track, Long> {
     Track findById(Long id);
-
 }

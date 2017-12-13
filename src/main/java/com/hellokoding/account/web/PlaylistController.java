@@ -3,7 +3,6 @@ package com.hellokoding.account.web;
 import com.hellokoding.account.model.Playlist;
 import com.hellokoding.account.model.Track;
 import com.hellokoding.account.model.User;
-import com.hellokoding.account.repository.UserRepository;
 import com.hellokoding.account.service.FindUsername;
 import com.hellokoding.account.service.PlaylistService;
 import com.hellokoding.account.service.TrackService;
