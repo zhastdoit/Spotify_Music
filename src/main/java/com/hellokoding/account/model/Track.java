@@ -2,15 +2,8 @@ package com.hellokoding.account.model;
 
 import lombok.Data;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -35,13 +28,11 @@ public class Track {
     @JoinColumn(name="aid")
     private Artist artist;
 
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name="tid")
-//    private List<Rate> rates;
 
-//	@ManyToMany(fetch=FetchType.LAZY, cascade= { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
-//	@JoinTable(name="trackinplaylist", joinColumns=@JoinColumn(name="tid"), inverseJoinColumns=@JoinColumn(name="pid"))
-//	private List<Playlist> playlists;
+
+	@ManyToMany(fetch=FetchType.LAZY, cascade= { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
+	@JoinTable(name="trackinplaylist", joinColumns=@JoinColumn(name="tid"), inverseJoinColumns=@JoinColumn(name="pid"))
+	private List<Playlist> playlists;
 
     public Track() {}
 
@@ -50,6 +41,7 @@ public class Track {
         this.tduration = tduration;
         this.genre = genre;
     }
+
 
     @Override
     public String toString() {

@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface PlaylistService {
     List<Playlist> getUserPlaylist(Long uid);
+    void savePlaylist(Playlist playlist);
+
 }

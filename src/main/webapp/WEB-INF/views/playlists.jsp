@@ -8,15 +8,15 @@
         <tr>
             <th>List ID</th>
             <th>Add Date</th>
-            <th>Private</th>
+            <th>Public</th>
         </tr>
 
         <!-- loop over and print our customers -->
         <c:forEach var="tempPlaylist" items="${playlist}">
             <tr>
-                <td> ${tempPlaylist.pid} </td>
-                <td> ${tempPlaylist.pname} </td>
-                <td> ${tempPlaylist.public} </td>
+                <td><a href="/playlist/${tempPlaylist.pid}"> ${tempPlaylist.pid} </td>
+                <td><a href="/playlist/${tempPlaylist.pid}"> ${tempPlaylist.pname} </td>
+                <td><a href="/playlist/${tempPlaylist.pid}"> ${tempPlaylist.canSee} </td>
             </tr>
 
         </c:forEach>
@@ -24,3 +24,4 @@
     </table>
 
 </div>
+

@@ -3,7 +3,9 @@ package com.hellokoding.account.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
+import java.util.List;
+
 
 @Data
 @Entity
@@ -11,7 +13,7 @@ import java.util.Date;
 public class Playlist {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "pid")
     private Long pid;
 
@@ -19,23 +21,28 @@ public class Playlist {
     private String pname;
 
     @Column(name = "pdate")
-    private Date date;
+    private Timestamp timestamp;
 
     // true stands for OK for everybody
     @Column(name = "public")
-    private boolean isPublic;
+    private Boolean canSee;
 
-    @ManyToOne(cascade= { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
-    @JoinColumn(name = "uid")
-    private User owner;
+    @Column(name = "uid")
+    private Long uid;
 
-
+    @ManyToMany(fetch=FetchType.LAZY, cascade= { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
+    @JoinTable(name="trackinplaylist", joinColumns=@JoinColumn(name="pid"), inverseJoinColumns=@JoinColumn(name="tid"))
+    private List<Track> trackList;
 
     public Playlist() {}
 
-    public Playlist(Date date, boolean isPublic, String pname) {
+    public Playlist(String pname, boolean canSee, Long uid) {
         this.pname = pname;
-        this.date = date;
-        this.isPublic = isPublic;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
+        this.canSee = canSee;
+        this.uid = uid;
+    }
+    public boolean getCanSee() {
+        return this.canSee;
     }
 }

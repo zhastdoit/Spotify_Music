@@ -12,4 +12,5 @@ public interface TrackService {
     List<Rate> getMyRate(Long uid);
     Optional<Double> getAverageScore(Long tid);
     List<Track> getTrackList();
+    List<Track> getTrackByPlaylist(Long pid);
 }

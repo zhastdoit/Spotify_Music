@@ -48,7 +48,8 @@ public class User {
     @JoinColumn(name="uid")
     private List<Rate> rates;
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="uid")
     private List<Playlist> playlists;
 
     @Transient
