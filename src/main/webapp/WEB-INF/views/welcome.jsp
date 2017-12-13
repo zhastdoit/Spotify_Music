@@ -48,6 +48,7 @@
             </div>
         </div>
         <div id="favorite" class="tab-pane fade">
+
             <h4>Recommended Artists</h4>
             <form class="navbar-form">
                 <button type="button" class="btn btn-large btn-success" (click)="resetPassword()">Reset password via email</button>

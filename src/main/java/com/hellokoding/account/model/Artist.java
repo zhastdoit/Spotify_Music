@@ -2,6 +2,8 @@ package com.hellokoding.account.model;
 
 
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+@Data
 @Entity
 @Table(name="artist")
 public class Artist {
@@ -39,39 +42,7 @@ public class Artist {
         this.description = description;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getAname() {
-        return aname;
-    }
-
-    public void setAname(String aname) {
-        this.aname = aname;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<Track> getTracks() {
-        return tracks;
-    }
-
-    public void setTracks(List<Track> tracks) {
-        this.tracks = tracks;
-    }
-
-    public void add(Track track) {
+    public void addTrack(Track track) {
         if (tracks == null) {
             tracks = new ArrayList<>();
         }

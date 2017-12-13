@@ -27,6 +27,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="/track/all">Tracks<span class="sr-only">(current)</span></a></li>
                         <li><a href="/artist/all">Artists</a></li>
+                        <li><a href="/playlist/all">Playlist</a></li>
                     </ul>
                     <form class="navbar-form navbar-left">
                         <div class="form-group">
@@ -50,8 +51,8 @@
                         <li><a onclick="document.forms['logoutForm'].submit()">Logout</a></ul></li>
                     </ul>
             </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-    </nav>
+
+        </nav>
 
     </div>
 

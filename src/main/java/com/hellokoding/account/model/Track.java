@@ -1,5 +1,7 @@
 package com.hellokoding.account.model;
 
+import lombok.Data;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+@Data
 @Entity
 @Table(name="track")
 public class Track {
@@ -46,46 +49,6 @@ public class Track {
         this.ttitle = ttitle;
         this.tduration = tduration;
         this.genre = genre;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTtitle() {
-        return ttitle;
-    }
-
-    public void setTtitle(String ttitle) {
-        this.ttitle = ttitle;
-    }
-
-    public int getTduration() {
-        return tduration;
-    }
-
-    public void setTduration(int tduration) {
-        this.tduration = tduration;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public Artist getArtist() {
-        return artist;
-    }
-
-    public void setArtist(Artist artist) {
-        this.artist = artist;
     }
 
     @Override

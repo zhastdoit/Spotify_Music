@@ -1,6 +1,8 @@
 package com.hellokoding.account.model;
 
 
+import lombok.Data;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+@Data
 @Entity
 @IdClass(RatePrimaryKey.class)
 @Table(name="rate")
@@ -29,30 +32,6 @@ public class Rate {
         this.score = score;
         this.uid = uid;
         this.tid = tid;
-    }
-
-    public Long getUid() {
-        return uid;
-    }
-
-    public Long getTid() {
-        return tid;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setUid(Long uid) {
-        this.uid = uid;
-    }
-
-    public void setTid(Long tid) {
-        this.tid = tid;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
     }
 
 }
