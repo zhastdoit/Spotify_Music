@@ -1,6 +1,6 @@
 <%@ include file="parts/header.jsp" %>
 <div class="container">
-    <h3> Now Playing</h3>
+    <h3>Now Playing</h3>
     <h1>${track.ttitle}</h1>
     <h5><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Score: ${avgScore}/5</h5>
 

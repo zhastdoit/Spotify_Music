@@ -108,7 +108,7 @@ public class UserController {
     @RequestMapping(value = "/user/{id}", method = RequestMethod.POST)
     public String updateFollow(@PathVariable("id") Long fid, @RequestParam("followStatus") boolean followStatus, Model theModel) {
         Long uid = getUidFromSystem();
-        User user = userService.findById(uid);
+        User user = userService.findById(fid);
         boolean isFollowing = userService.isFollowing(uid, fid);
         List<User> followings = userService.getFollowingsById(user.getId());
         List<User> followers = userService.getFollowersById(user.getId());

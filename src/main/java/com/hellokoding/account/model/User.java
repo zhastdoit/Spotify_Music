@@ -46,6 +46,10 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="uid")
+    private List<Like> likes;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="uid")
     private List<Rate> rates;
 
     @OneToMany(cascade = CascadeType.ALL)

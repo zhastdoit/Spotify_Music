@@ -1,8 +1,10 @@
 package com.hellokoding.account.service;
 
 import com.hellokoding.account.model.Follow;
+import com.hellokoding.account.model.Like;
 import com.hellokoding.account.model.User;
 import com.hellokoding.account.repository.FollowRepository;
+import com.hellokoding.account.repository.LikeRepository;
 import com.hellokoding.account.repository.RoleRepository;
 import com.hellokoding.account.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
     @Autowired
     private FollowRepository followRepository;
+    @Autowired
+    private LikeRepository likeRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -85,4 +89,34 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public void saveLike(Long uid, Long aid){
+        Like like = new Like(uid,aid);
+        likeRepository.save(like);
+    }
+
+    @Override
+    public void deleteLike(Long uid, Long aid){
+        Like likeToDelete = likeRepository.getByUidAndAid(uid, aid);
+        likeRepository.delete(likeToDelete);
+    }
+
+    @Override
+    public List<User> getFansById(Long aid) {
+        List<Like> likesRecord = likeRepository.getAllByAid(aid);
+        List<User> fans = new ArrayList<>();
+        for(Like like : likesRecord) {
+            fans.add(findById(like.getUid()));
+        }
+        return fans;
+    }
+
+    @Override
+    public boolean isLiking(Long uid, Long aid) {
+        if(likeRepository.getByUidAndAid(uid, aid) != null){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

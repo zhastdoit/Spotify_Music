@@ -2,7 +2,7 @@
 <div class="container">
     <div class="col-md-12">
         <h2>${user.username}</h2>
-        <p style="white-space:pre"> <span class="glyphicon glyphicon-user" aria-hidden="true"> Followers: ${numberOfFollowers} <span class="glyphicon glyphicon-heart" aria-hidden="true"></span> Following: ${numberOfFollowings} </p>
+        <h5 style="white-space:pre"> <span class="glyphicon glyphicon-user" aria-hidden="true"> Followers: ${numberOfFollowers} <span class="glyphicon glyphicon-heart" aria-hidden="true"></span> Following: ${numberOfFollowings} </h5>
     </div>
     <div class="col-xs-12">
         <c:choose>
