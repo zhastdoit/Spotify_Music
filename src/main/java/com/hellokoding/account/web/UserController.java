@@ -1,5 +1,6 @@
 package com.hellokoding.account.web;
 
+import com.hellokoding.account.model.Follow;
 import com.hellokoding.account.model.Rate;
 import com.hellokoding.account.model.User;
 import com.hellokoding.account.service.FindUsername;
@@ -11,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -78,7 +77,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/followers", method = RequestMethod.GET)
-    public String showFollowers(Model theModel) {
+    public String myFollowers(Model theModel) {
         Long uid = getUidFromSystem();
         List<User> followers = userService.getFollowersById(uid);
         theModel.addAttribute("followers", followers);
@@ -86,17 +85,58 @@ public class UserController {
     }
 
     @RequestMapping(value = "/followings", method = RequestMethod.GET)
-    public String showFollowings(Model theModel) {
+    public String myFollowings(Model theModel) {
         Long uid = getUidFromSystem();
         List<User> followings = userService.getFollowingsById(uid);
         theModel.addAttribute("followings", followings);
         return "followings";
     }
 
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    public String userProfile(@PathVariable("id") Long fid, Model theModel) {
+        User user = userService.findById(fid);
+        boolean isFollowing = userService.isFollowing(getUidFromSystem(), fid);
+        List<User> followings = userService.getFollowingsById(user.getId());
+        List<User> followers = userService.getFollowersById(user.getId());
+        theModel.addAttribute("user", user);
+        theModel.addAttribute("isFollowing", isFollowing);
+        theModel.addAttribute("numberOfFollowings", followings.size());
+        theModel.addAttribute("numberOfFollowers", followers.size());
+        return "user-profile";
+    }
+
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.POST)
+    public String updateFollow(@PathVariable("id") Long fid, @RequestParam("followStatus") boolean followStatus, Model theModel) {
+        Long uid = getUidFromSystem();
+        User user = userService.findById(uid);
+        boolean isFollowing = userService.isFollowing(uid, fid);
+        List<User> followings = userService.getFollowingsById(user.getId());
+        List<User> followers = userService.getFollowersById(user.getId());
+        if(followStatus) {
+            userService.saveFollow(uid, fid);
+        } else {
+            userService.deleteFollow(uid, fid);
+        }
+        theModel.addAttribute("user", user);
+        theModel.addAttribute("isFollowing", isFollowing);
+        theModel.addAttribute("numberOfFollowings", followings.size());
+        theModel.addAttribute("numberOfFollowers", followers.size());
+        return "redirect:/user/"+fid;
+    }
+    @RequestMapping(value = "/myprofile", method = RequestMethod.GET)
+    public String myProfile(Model theModel) {
+        User user = userService.findById(getUidFromSystem());
+        List<User> followings = userService.getFollowingsById(user.getId());
+        List<User> followers = userService.getFollowersById(user.getId());
+        theModel.addAttribute("user", user);
+        theModel.addAttribute("numberOfFollowings", followings.size());
+        theModel.addAttribute("numberOfFollowers", followers.size());
+        return "user-myprofile";
+    }
+
     private Long getUidFromSystem() {
         String username = FindUsername.findLoggedInUsername();
         User user = userService.findByUsername(username);
-        Long uid = user.getId();
-        return uid;
+        return user.getId();
     }
 }

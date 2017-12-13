@@ -36,19 +36,19 @@
                         <%--<button type="submit" class="btn btn-default">Submit</button>--%>
                     </form>
                     <ul class="nav navbar-nav navbar-right">
-                        <%--<li class="dropdown">--%>
-                        <%--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>--%>
-                        <%--<ul class="dropdown-menu">--%>
-                        <%--<li><a href="/welcome/#favorite">Favorite Artist</a></li>--%>
-                        <%--<li><a href="#">Another action</a></li>--%>
-                        <%--<li><a href="#">Something else here</a></li>--%>
-                        <%--<li role="separator" class="divider"></li>--%>
-                        <%--<li><a href="#">Separated link</a></li>--%>
-                        <%--<li role="separator" class="divider"></li>--%>
-                        <%--<li><a href="#">One more separated link</a></li>--%>
-                        <%--</ul>--%>
-                        <%--</li> --%>
-                        <li><a onclick="document.forms['logoutForm'].submit()">Logout</a></ul></li>
+                        <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${pageContext.request.userPrincipal.name}<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/myprofile">MyProfile</a></li>
+                            <li><a href="/welcome/#favorite">Favorite Artist</a></li>
+                            <li><a href="/followers">My Followers</a></li>
+                            <li><a href="/followings">My Followings</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a onclick="document.forms['logoutForm'].submit()">Logout</a></ul></li>
+                        </ul>
+                        </li>
                     </ul>
             </div><!-- /.navbar-collapse -->
 

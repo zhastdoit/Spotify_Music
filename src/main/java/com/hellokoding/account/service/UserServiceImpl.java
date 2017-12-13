@@ -35,6 +35,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void saveFollow(Long uid, Long fid) {
+        Follow follow = new Follow(uid, fid);
+        followRepository.save(follow);
+    }
+
+    @Override
+    public void deleteFollow(Long uid, Long fid) {
+        Follow followToDelete = followRepository.getByUidAndFid(uid, fid);
+        followRepository.delete(followToDelete);
+    }
+
+    @Override
     public User findById(Long id) {
         return userRepository.findById(id);
     }
@@ -62,6 +74,15 @@ public class UserServiceImpl implements UserService {
             followings.add(findById(follow.getFid()));
         }
         return followings;
+    }
+
+    @Override
+    public boolean isFollowing(Long uid, Long fid) {
+        if(followRepository.getByUidAndFid(uid, fid) != null){
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

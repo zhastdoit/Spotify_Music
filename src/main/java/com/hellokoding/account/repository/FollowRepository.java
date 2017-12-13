@@ -8,13 +8,12 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface FollowRepository extends JpaRepository<Follow, Long> {
+
     List<Follow> getAllByFid(Long id);
 
-//    List<Follow> getAllByUid(Long id);
+    Follow getByUidAndFid(Long uid, Long fid);
 
     @Query("select F from Follow F where F.uid = :userId")
     List<Follow> findFollowings(@Param("userId") Long uid);
 
-//    @Query("select User from Follow F join User U where F.fid =  ")
-//    List<User>
 }

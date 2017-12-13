@@ -35,7 +35,7 @@ public class PlaylistController {
     @RequestMapping(value = {"/newplaylist"}, method = RequestMethod.GET)
     public String newPlaylist(Model theModel) {
 
-        return "addPlaylist";
+        return "playlistadd";
     }
 
 }

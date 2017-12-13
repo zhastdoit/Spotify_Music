@@ -1,6 +1,6 @@
 <%@ include file="parts/header.jsp" %>
 <div class="container">
-    <h2>My Followers</h2>
+    <h2>My Followings</h2>
     <table class="table table-hover">
         <tr>
             <th>User ID</th>
@@ -9,10 +9,10 @@
         </tr>
 
         <!-- loop over and print our customers -->
-        <c:forEach var="follower" items="${followers}">
+        <c:forEach var="following" items="${followings}">
             <tr>
-                <td><a href="/user/${follower.id}"> ${follower.id} </td>
-                <td><a href="/user/${follower.id}"> ${follower.username} </td>
+                <td><a href="/user/${following.id}"> ${following.id} </td>
+                <td><a href="/user/${following.id}"> ${following.username} </td>
                     <%--<td><a href="/artist/${artist.id}"> ${artist.description} </td>--%>
             </tr>
         </c:forEach>

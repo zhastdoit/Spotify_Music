@@ -1,30 +1,31 @@
 <%@ include file="parts/header.jsp" %>
 <div class="container">
-
-    <table>
-        <tr>
-            <th>Track ID</th>
-            <th>Track Title</th>
-            <th>Track Length</th>
-            <th>Genre</th>
-            <th>Artist</th>
-            <th>Score</th>
-        </tr>
-
-        <!-- loop over and print our customers -->
-        <c:forEach var="track" items="${trackList}">
+    <h2>Tracks</h2>
+    <div style="overflow-y: auto">
+        <table class="table table-hover">
             <tr>
-                <td> ${track.id} </td>
-                <td> ${track.ttitle} </td>
-                <td> ${track.tduration} </td>
-                <td> ${track.genre} </td>
-                <td> ${track.artist.aname} </td>
-                <td> ${scores.get(track.id.intValue() - 1)} </td>
+                <th>Track ID</th>
+                <th>Track Title</th>
+                <th>Track Length</th>
+                <th>Genre</th>
+                <th>Artist</th>
+                <th>Score</th>
             </tr>
 
-        </c:forEach>
+            <!-- loop over and print our customers -->
+            <c:forEach var="track" items="${trackList}">
+                <tr>
+                    <td><a href="/track/${track.id}"> ${track.id} </td>
+                    <td><a href="/track/${track.id}"> ${track.ttitle} </td>
+                    <td><a href="/track/${track.id}"> ${track.tduration} </td>
+                    <td><a href="/track/${track.id}"> ${track.genre} </td>
+                    <td><a href="/artist/${track.artist.id}"> ${track.artist.aname} </td>
+                    <td> ${scores.get(track.id.intValue() - 1)} </td>
+                </tr>
 
-    </table>
+            </c:forEach>
 
+        </table>
+    </div>
 </div>
 <%@ include file="parts/footer.jsp" %>
