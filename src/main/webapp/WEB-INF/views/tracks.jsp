@@ -27,5 +27,4 @@
     </table>
 
 </div>
-</container>
 <%@ include file="parts/footer.jsp" %>

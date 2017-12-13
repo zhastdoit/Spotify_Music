@@ -38,6 +38,14 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="uid")
+    private List<Follow> followings;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="fid")
+    private List<Follow> followers;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="uid")
     private List<Rate> rates;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)

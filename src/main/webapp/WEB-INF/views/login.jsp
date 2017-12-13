@@ -20,5 +20,4 @@
     </form>
 
 </div>
-</container>
 <%@ include file="parts/footer.jsp" %>

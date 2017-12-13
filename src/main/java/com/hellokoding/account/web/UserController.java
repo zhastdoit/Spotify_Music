@@ -14,8 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import com.hellokoding.account.service.FindUsername;
 
 import java.util.List;
 
@@ -71,14 +69,34 @@ public class UserController {
         return "welcome";
     }
 
-    @RequestMapping(value = "/myRate", method = RequestMethod.GET)
+    @RequestMapping(value = "/rates", method = RequestMethod.GET)
     public String showMyRateHistory(Model theModel) {
+        Long uid = getUidFromSystem();
+        List<Rate> myRateList = trackService.getMyRate(uid);
+        theModel.addAttribute("rateList", myRateList);
+        return "rates";
+    }
+
+    @RequestMapping(value = "/followers", method = RequestMethod.GET)
+    public String showFollowers(Model theModel) {
+        Long uid = getUidFromSystem();
+        List<User> followers = userService.getFollowersById(uid);
+        theModel.addAttribute("followers", followers);
+        return "followers";
+    }
+
+    @RequestMapping(value = "/followings", method = RequestMethod.GET)
+    public String showFollowings(Model theModel) {
+        Long uid = getUidFromSystem();
+        List<User> followings = userService.getFollowingsById(uid);
+        theModel.addAttribute("followings", followings);
+        return "followings";
+    }
+
+    private Long getUidFromSystem() {
         String username = FindUsername.findLoggedInUsername();
         User user = userService.findByUsername(username);
         Long uid = user.getId();
-        List<Rate> myRateList = trackService.getMyRate(uid);
-        theModel.addAttribute("rateList", myRateList);
-        return "myRate";
+        return uid;
     }
-    
 }

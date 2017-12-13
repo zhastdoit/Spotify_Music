@@ -53,7 +53,7 @@ public class Track {
 
     @Override
     public String toString() {
-        return "Track [id=" + id + ", ttile=" + ttitle + ", tduration=" + tduration + ", genre=" + genre + "]";
+        return "Track [id=" + id + ", ttitle=" + ttitle + ", tduration=" + tduration + ", genre=" + genre + "]";
     }
 
 }

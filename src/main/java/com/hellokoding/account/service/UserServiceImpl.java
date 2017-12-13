@@ -1,13 +1,17 @@
 package com.hellokoding.account.service;
 
+import com.hellokoding.account.model.Follow;
 import com.hellokoding.account.model.User;
+import com.hellokoding.account.repository.FollowRepository;
 import com.hellokoding.account.repository.RoleRepository;
 import com.hellokoding.account.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -15,6 +19,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private FollowRepository followRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -29,7 +35,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
+    @Override
+    public List<User> getFollowersById(Long uid){
+        List<Follow> followersRecord = followRepository.getAllByFid(uid);
+        List<User> followers = new ArrayList<>();
+        for(Follow follow : followersRecord) {
+            followers.add(findById(follow.getUid()));
+        }
+        return followers;
+    }
+
+    @Override
+    public List<User> getFollowingsById(Long uid){
+        List<Follow> followingsRecord = followRepository.findFollowings(uid);
+        List<User> followings = new ArrayList<>();
+        for(Follow follow : followingsRecord) {
+            followings.add(findById(follow.getFid()));
+        }
+        return followings;
+    }
+
 }
