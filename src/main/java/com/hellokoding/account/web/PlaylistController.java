@@ -58,16 +58,17 @@ public class PlaylistController {
 
     @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
     public String getTrackListByPlaylist(@PathVariable("id") Long id, Model theModel) {
-
+        Playlist thePlaylist = playlistService.getPlaylistWithPid(id);
         List<Track> playlistTrack = trackService.getTrackByPlaylist(id);
         List<Double> scores = new ArrayList<>();
         playlistTrack.forEach((track) -> {
             Long tid = track.getId();
             scores.add(trackService.getAverageScore(tid).isPresent() ? trackService.getAverageScore(tid).get() :(Double) 0d);
         });
+        theModel.addAttribute("playlist", thePlaylist);
         theModel.addAttribute("trackList", playlistTrack);
         theModel.addAttribute("scores", scores);
-        return "tracks";
+        return "playlist-details";
     }
 
 }

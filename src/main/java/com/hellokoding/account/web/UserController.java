@@ -13,6 +13,9 @@ import java.util.*;
 
 @Controller
 public class UserController {
+
+    private static final Set<String> GENRESET = new HashSet<>(Arrays.asList("pop", "r&b", "jazz", "blues", "country", "classical", "metal", "popular", "rap"));
+
     @Autowired
     private UserService userService;
 
@@ -99,6 +102,7 @@ public class UserController {
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String mySearch(@RequestParam("search") String searchContent, Model theModel) {
+
         List<Album> getAlbumByKeyword = new ArrayList<>();
         List<Track> getTrackByKeyword = new ArrayList<>();
         List<Track> getTrackByGenre = new ArrayList<>();
@@ -107,8 +111,8 @@ public class UserController {
         boolean hasAlbumList = true;
         boolean hasTrackGenreList = false;
         boolean hasTrackList = true;
-        Set<String> genreSet = new HashSet<>(Arrays.asList("pop", "r&b", "jazz", "blues", "country", "classical", "metal", "popular", "rap"));
-        if (genreSet.contains(searchContent.toLowerCase())) {
+
+        if (GENRESET.contains(searchContent.toLowerCase())) {
             getTrackByGenre = trackService.getTracksByGenreKeyword(searchContent);
             hasTrackGenreList = true;
             theModel.addAttribute("hasTrackGenreList", hasTrackGenreList);
@@ -120,38 +124,34 @@ public class UserController {
         getArtistByKeyword = artistService.getArtistByKeyword(searchContent);
         getTrackByKeyword = trackService.getTrackByKeyword(searchContent);
         getAlbumByKeyword = albumService.getAlbumByKeyword(searchContent);
-        if ((getTrackByGenre== null
-            && getArtistByKeyword == null
-                && getTrackByKeyword == null
-                && getAlbumByKeyword == null)
-                || (getTrackByGenre.size() == 0
+        if (getTrackByGenre.size() == 0
                 && getArtistByKeyword.size() == 0
                 && getTrackByKeyword.size() == 0
-                && getAlbumByKeyword.size() == 0)) {
+                && getAlbumByKeyword.size() == 0) {
             return "not-found-page";
         }
         else {
-            if (getArtistByKeyword != null || getArtistByKeyword.size() != 0) {
+            if (getArtistByKeyword.size() != 0) {
                 theModel.addAttribute("hasArtistList", hasArtistList);
                 theModel.addAttribute("aritstResult", getArtistByKeyword);
             }
-            else {
+            if (getArtistByKeyword.size() == 0){
                 hasArtistList = false;
                 theModel.addAttribute("hasArtistList", hasArtistList);
             }
-            if (getAlbumByKeyword != null || getAlbumByKeyword.size() != 0) {
+            if (getAlbumByKeyword.size() != 0) {
                 theModel.addAttribute("hasAlbumList", hasAlbumList);
                 theModel.addAttribute("albumResult", getAlbumByKeyword);
             }
-            else {
+            if (getAlbumByKeyword.size() == 0) {
                 hasAlbumList = false;
                 theModel.addAttribute("hasAlbumList", hasAlbumList);
             }
-            if (getTrackByKeyword != null || getTrackByKeyword.size() != 0) {
+            if (getTrackByKeyword.size() != 0) {
                 theModel.addAttribute("hasTrackList", hasTrackList);
                 theModel.addAttribute("trackResult", getTrackByKeyword);
             }
-            else {
+            if (getTrackByKeyword.size() == 0) {
                 hasTrackList = false;
                 theModel.addAttribute("hasTrackList", hasTrackList);
             }

@@ -36,7 +36,7 @@ public class ArtistServiceImp implements ArtistService {
 
     @Override
     public List<Artist> getArtistByKeyword(String keyword) {
-        return artistRepository.getTop10ArtistsByAnameLike(keyword);
+        return artistRepository.getTop10ArtistsByAnameContains(keyword);
     }
 
 }

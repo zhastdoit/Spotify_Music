@@ -1,6 +1,9 @@
 <%@ include file="parts/header.jsp" %>
 <body>
-<table>
+<h2>&#10084;Rates</h2>
+<div style="overflow-y: auto" class="col-md-6">
+    <table class="table table-hover">
+
     <tr>
         <th>User ID</th>
         <th>Track ID</th>
@@ -10,12 +13,13 @@
     <!-- loop over and print our customers -->
     <c:forEach var="tempRate" items="${rateList}">
         <tr>
-            <td> ${tempRate.uid} </td>
-            <td> ${tempRate.tid} </td>
-            <td> ${tempRate.score} </td>
+            <td><a href="/track/${tempRate.tid}"> ${tempRate.uid} </td>
+            <td><a href="/track/${tempRate.tid}"> ${tempRate.tid} </td>
+            <td><a href="/track/${tempRate.tid}">s ${tempRate.score} </td>
         </tr>
 
     </c:forEach>
 
-</table>
+    </table>
+</div>
 <%@ include file="parts/footer.jsp" %>

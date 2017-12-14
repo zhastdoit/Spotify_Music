@@ -1,12 +1,13 @@
 <%@ include file="parts/header.jsp" %>
 <body>
 <div class="container">
-    <h2>Tracks</h2>
-    <div style="overflow-y: auto">
+    <h2>Results</h2>
+    <div style="overflow-y: auto" >
+
         <c:choose>
             <c:when test="${hasTrackList}">
-                <table class="table table-hover">
-                    <div class="panel panel-default">
+
+                    <div class="panel panel-default col-md-6">
                         <div class="panel-heading">
                             <h3 class="panel-title">TRACK</h3>
                         </div>
@@ -39,11 +40,11 @@
                             </table>
                         </div>
                     </div>
-                </table>
+
             </c:when>
             <c:otherwise>
-            <table class="table table-hover">
-                <div class="panel panel-default">
+
+                <div class="panel panel-default col-md-6">
                     <div class="panel-heading">
                         <h3 class="panel-title">TRACK</h3>
                     </div>
@@ -55,14 +56,14 @@
                         </table>
                     </div>
                 </div>
-            </table>
+
             </c:otherwise>
         </c:choose>
 
         <c:choose>
             <c:when test="${hasTrackGenreList}">
-                <table class="table table-hover">
-                    <div class="panel panel-default">
+
+                    <div class="panel panel-default col-md-6">
                         <div class="panel-heading">
                             <h3 class="panel-title">TRACK GENRE</h3>
                         </div>
@@ -95,11 +96,11 @@
                             </table>
                         </div>
                     </div>
-                </table>
+
             </c:when>
             <c:otherwise>
-                <table class="table table-hover">
-                    <div class="panel panel-default">
+
+                    <div class="panel panel-default col-md-6">
                         <div class="panel-heading">
                             <h3 class="panel-title">TRACK</h3>
                         </div>
@@ -111,15 +112,15 @@
                             </table>
                         </div>
                     </div>
-                </table>
+
             </c:otherwise>
         </c:choose>
 
 
         <c:choose>
             <c:when test="${hasAlbumList}">
-                <table class="table table-hover">
-                    <div class="panel panel-default">
+
+                    <div class="panel panel-default col-md-6">
                         <div class="panel-heading">
                             <h3 class="panel-title">ALBUM</h3>
                         </div>
@@ -142,11 +143,11 @@
                             </table>
                         </div>
                     </div>
-                </table>
+
             </c:when>
             <c:otherwise>
-                <table class="table table-hover">
-                    <div class="panel panel-default">
+
+                    <div class="panel panel-default col-md-6">
                         <div class="panel-heading">
                             <h3 class="panel-title">ALBUM</h3>
                         </div>
@@ -158,14 +159,14 @@
                             </table>
                         </div>
                     </div>
-                </table>
+
             </c:otherwise>
         </c:choose>
 
         <c:choose>
             <c:when test="${hasAlbumList}">
-                <table class="table table-hover">
-                    <div class="panel panel-default">
+
+                    <div class="panel panel-default col-md-6">
                         <div class="panel-heading">
                             <h3 class="panel-title">ARTIST</h3>
                         </div>
@@ -189,11 +190,11 @@
                             </table>
                         </div>
                     </div>
-                </table>
+
             </c:when>
             <c:otherwise>
-                <table class="table table-hover">
-                    <div class="panel panel-default">
+
+                    <div class="panel panel-default col-md-6">
                         <div class="panel-heading">
                             <h3 class="panel-title">ARTIST</h3>
                         </div>
@@ -205,11 +206,12 @@
                             </table>
                         </div>
                     </div>
-                </table>
+
             </c:otherwise>
         </c:choose>
 
 
     </div>
 </div>
+<div style="height: 80px;"></div>
 <%@ include file="parts/footer.jsp" %>

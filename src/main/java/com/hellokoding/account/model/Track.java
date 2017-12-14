@@ -36,6 +36,10 @@ public class Track {
 	@JoinTable(name="trackinplaylist", joinColumns=@JoinColumn(name="tid"), inverseJoinColumns=@JoinColumn(name="pid"))
 	private List<Playlist> playlists;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="tid")
+    private List<Rate> rates;
+
     public Track() {}
 
     public Track(String ttile, int tduration, String genre) {

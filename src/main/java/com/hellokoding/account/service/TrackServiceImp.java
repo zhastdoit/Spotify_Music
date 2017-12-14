@@ -120,12 +120,12 @@ public class TrackServiceImp implements TrackService {
 
     @Override
     public List<Track> getTrackByKeyword(String keyword) {
-        return trackRepository.getTop10TracksByTtitleLike(keyword);
+        return trackRepository.getTop10TracksByTtitleContains(keyword);
     }
 
     @Override
     public List<Track> getTracksByGenreKeyword(String genre) {
-        return trackRepository.getTop10TracksByGenreLike(genre);
+        return trackRepository.getTop10TracksByGenreContains(genre);
     }
 
 

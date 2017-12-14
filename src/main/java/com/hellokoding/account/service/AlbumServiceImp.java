@@ -20,7 +20,12 @@ public class AlbumServiceImp implements AlbumService {
 
     @Override
     public List<Album> getAlbumByKeyword(String keyword) {
-        return albumRepository.getTop10AlbumsByAtitleLike(keyword);
+        return albumRepository.getTop10AlbumsByAtitleContains(keyword);
+    }
+
+    @Override
+    public Album getAlbumWithAlid(Long alid) {
+        return albumRepository.getAlbumByAlid(alid);
     }
 
 }

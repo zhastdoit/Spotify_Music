@@ -28,4 +28,8 @@ public class PlaylistServiceImp implements PlaylistService {
         playlistRepository.save(playlist);
     }
 
+    @Override
+    public Playlist getPlaylistWithPid(Long pid) {
+        return playlistRepository.getPlaylistsByPid(pid);
+    }
 }

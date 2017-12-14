@@ -14,4 +14,6 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
 
     @Query("select P.trackList from Playlist P where P.pid = :pid")
     List<Track> getTrackByPlaylistId(@Param("pid")Long pid);
+
+    Playlist getPlaylistsByPid(Long pid);
 }

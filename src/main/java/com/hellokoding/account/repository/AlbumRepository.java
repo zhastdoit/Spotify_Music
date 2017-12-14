@@ -12,7 +12,9 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
     @Query("select A.trackList from Album A where A.alid = :alid")
     List<Track> getTrackByAlbumId(@Param("alid") Long alid);
 
-    List<Album> getTop10AlbumsByAtitleLike(String keyword);
+    List<Album> getTop10AlbumsByAtitleContains(String keyword);
 
     //List<Album> getTracksByIdBetween(Long a, Long b);
+
+    Album getAlbumByAlid(Long alid);
 }

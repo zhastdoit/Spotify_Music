@@ -15,8 +15,8 @@ public interface TrackRepository extends JpaRepository<Track, Long> {
     List<Track> getTracksByIdBetween(Long a, Long b);
 //    @Query("SELECT Track From Track T where T.id > :a AND T.id <= :b")
 //    List<Track> obtainTracksRangeFrom(@Param("a") Long a, @Param("b") Long b);
-    List<Track> getTop10TracksByTtitleLike(String keyword);
+    List<Track> getTop10TracksByTtitleContains(String keyword);
 
-    
-    List<Track> getTop10TracksByGenreLike(String genre);
+
+    List<Track> getTop10TracksByGenreContains(String genre);
 }

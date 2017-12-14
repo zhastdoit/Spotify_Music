@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -33,16 +34,18 @@ public class AlbumController {
 
     @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
     public String getTrackListByPlaylist(@PathVariable("id") Long id, Model theModel) {
-
+        Album theAlbum = albumService.getAlbumWithAlid(id);
         List<Track> albumTrack = trackService.getTrackByAlbum(id);
-        theModel.addAttribute("trackList", albumTrack);
         List<Double> scores = new ArrayList<>();
         albumTrack.forEach((track) -> {
             Long tid = track.getId();
             scores.add(trackService.getAverageScore(tid).isPresent() ? trackService.getAverageScore(tid).get() :(Double) 0d);
         });
+        theModel.addAttribute("trackList", albumTrack);
         theModel.addAttribute("scores", scores);
-        return "tracks";
+        theModel.addAttribute("album", theAlbum);
+        return "album-details";
+
     }
 
 }
