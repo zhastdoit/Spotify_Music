@@ -11,4 +11,8 @@ import java.util.List;
 public interface TrackRepository extends JpaRepository<Track, Long> {
     Track findById(Long id);
     List<Track> getAllByArtist(Artist artist);
+    Long countAllByArtist(Artist artist);
+    List<Track> getTracksByIdBetween(Long a, Long b);
+//    @Query("SELECT Track From Track T where T.id > :a AND T.id <= :b")
+//    List<Track> obtainTracksRangeFrom(@Param("a") Long a, @Param("b") Long b);
 }

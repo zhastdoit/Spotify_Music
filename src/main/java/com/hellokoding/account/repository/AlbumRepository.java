@@ -11,4 +11,6 @@ import java.util.List;
 public interface AlbumRepository extends JpaRepository<Album, Long> {
     @Query("select A.trackList from Album A where A.alid = :alid")
     List<Track> getTrackByAlbumId(@Param("alid") Long alid);
+
+    List<Album> getTracksByIdBetween(Long a, Long b);
 }

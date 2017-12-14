@@ -5,7 +5,8 @@
         <form id="logoutForm" method="POST" action="${contextPath}/logout">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
-        <h2>Welcome, ${pageContext.request.userPrincipal.name}! &#9731;</h2>
+        <h2>Welcome, ${pageContext.request.userPrincipal.name}! </h2>
+        <p>&#9731; It's cold outside. Come inside!</p>
     </c:if>
 
     <ul class="nav nav-tabs">

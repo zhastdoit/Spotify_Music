@@ -13,9 +13,12 @@ public interface TrackService {
     void saveListen(Long uid, Long tid);
     List<Rate> getMyRate(Long uid);
     Optional<Double> getAverageScore(Long tid);
+    @Deprecated
     List<Track> getTrackList();
+    List<Track> obtainTracksByIdRangeFrom(Long a, Long b);
     List<Track> getTrackByPlaylist(Long pid);
     List<Track> getTrackByAlbum(Long alid);
     List<Listen> getListenByUserID(Long uid);
     List<Track> recommendByRecentListen(Long uid);
+
 }

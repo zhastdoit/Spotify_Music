@@ -49,6 +49,18 @@ public class TrackServiceImp implements TrackService {
     }
 
     @Override
+    public List<Track> obtainTracksByIdRangeFrom(Long a, Long b){
+        Long total = trackRepository.count();
+        List<Track> trackList = new ArrayList<>();
+        if(a.compareTo(total) > 0 || a.compareTo(b) > 0) {
+            return trackList;
+        } else {
+            trackList = trackRepository.getTracksByIdBetween(a, b);
+        }
+        return trackList;
+    }
+
+    @Override
     public void saveRate(Rate rate) {
         rateRepository.save(rate);
     }

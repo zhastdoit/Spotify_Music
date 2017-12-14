@@ -8,7 +8,6 @@ import com.hellokoding.account.service.FindUsername;
 import com.hellokoding.account.service.TrackService;
 import com.hellokoding.account.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +22,8 @@ import java.util.List;
 @RequestMapping("/track")
 public class TrackController {
 
+    private final int ITEM_PER_PAGE = 15;
+
     @Autowired
     private TrackService trackService;
 
@@ -31,13 +32,44 @@ public class TrackController {
 
     @RequestMapping(value = {"/all"}, method = RequestMethod.GET)
     public String showAllTrack(Model theModel) {
-        List<Track> allTrack = trackService.getTrackList();
+        List<Track> allTrack = trackService.obtainTracksByIdRangeFrom(Long.valueOf(0),Long.valueOf(ITEM_PER_PAGE-1));
         List<Double> scores = new ArrayList<>();
         allTrack.forEach((track) -> {
             Long tid = track.getId();
             scores.add(trackService.getAverageScore(tid).isPresent() ? trackService.getAverageScore(tid).get() :(Double) 0d);
         });
+        theModel.addAttribute("notFirstPage", false);
+        theModel.addAttribute("fromIndex", 0);
         theModel.addAttribute("trackList", allTrack);
+        theModel.addAttribute("scores", scores);
+        return "tracks";
+    }
+
+    @RequestMapping(value = {"/all"}, method = RequestMethod.POST)
+    public String showTracksInRange(@RequestParam("next") String next, @RequestParam("fromIndex") String fromIndex, Model theModel) {
+        int currentFrom = Integer.parseInt(fromIndex);
+        boolean isNext = Boolean.parseBoolean(next);
+        List<Track> allTrackInRange = new ArrayList<>();
+        if(isNext) {
+            allTrackInRange = trackService.obtainTracksByIdRangeFrom(Long.valueOf(currentFrom+ITEM_PER_PAGE),Long.valueOf(currentFrom+ITEM_PER_PAGE*2)-1);
+            currentFrom = currentFrom+ITEM_PER_PAGE;
+        } else {
+            allTrackInRange = trackService.obtainTracksByIdRangeFrom(Long.valueOf(currentFrom-ITEM_PER_PAGE),Long.valueOf(currentFrom)-1);
+            currentFrom = currentFrom-ITEM_PER_PAGE;
+        }
+        if(allTrackInRange.size()==0) {
+            allTrackInRange = trackService.obtainTracksByIdRangeFrom(Long.valueOf(currentFrom),Long.valueOf(currentFrom+ITEM_PER_PAGE-1));
+            currentFrom = Integer.parseInt(fromIndex);
+        }
+
+        List<Double> scores = new ArrayList<>();
+        allTrackInRange.forEach((track) -> {
+            Long tid = track.getId();
+            scores.add(trackService.getAverageScore(tid).isPresent() ? trackService.getAverageScore(tid).get() :(Double) 0d);
+        });
+        theModel.addAttribute("notFirstPage", currentFrom!=0);
+        theModel.addAttribute("fromIndex", currentFrom);
+        theModel.addAttribute("trackList", allTrackInRange);
         theModel.addAttribute("scores", scores);
         return "tracks";
     }

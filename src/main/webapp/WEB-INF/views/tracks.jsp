@@ -30,6 +30,44 @@
             </c:forEach>
 
         </table>
+        <c:choose>
+            <c:when test="${notFirstPage}">
+                <div class="col-sm-6 col-md-3 col-md-offset-3">
+                    <form method="POST" action="${contextPath}/track/all" class="form-signin form-inline">
+                        <div class="form-group">
+                            <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+                            <input type="hidden" name="next" class="form-control" value="False">
+                            <input type="hidden" name="fromIndex" class="form-control" value="${fromIndex}">
+                        </div>
+                        <button type="submit" class="btn btn-default col-xs-12"><- Prev</button>
+                    </form>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <form method="POST" action="${contextPath}/track/all" class="form-signin form-inline">
+                        <div class="form-group">
+                            <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+                            <input type="hidden" name="next" class="form-control" value="True">
+                            <input type="hidden" name="fromIndex" class="form-control" value="${fromIndex}">
+                        </div>
+                        <button type="submit" class="btn btn-default col-xs-12">Next -></button>
+                    </form>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="col-sm-6 col-md-3 col-md-offset-5">
+                    <form method="POST" action="${contextPath}/track/all" class="form-signin form-inline">
+                        <div class="form-group">
+                            <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+                            <input type="hidden" name="next" class="form-control" value="True">
+                            <input type="hidden" name="fromIndex" class="form-control" value="${fromIndex}">
+                        </div>
+                        <button type="submit" class="btn btn-default col-xs-12">Next -></button>
+                    </form>
+                </div>
+            </c:otherwise>
+        </c:choose>
     </div>
+</div>
+<div style="height: 80px">
 </div>
 <%@ include file="parts/footer.jsp" %>
