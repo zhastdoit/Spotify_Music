@@ -14,23 +14,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping(value = {"/artist"}, method = RequestMethod.GET)
 public class ArtistController {
 
+    private final int ITEM_PER_PAGE = 15;
+
     @Autowired
     private ArtistService artistService;
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = {"/all"}, method = RequestMethod.GET)
-    public String getAllArtist(Model theModel) {
-        List<Artist> artistList = artistService.getArtistList();
-        theModel.addAttribute("artist", artistList);
-        return "artist-list";
-    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getArtistDetails(@PathVariable("id") Long aid, Model theModel) {
@@ -68,5 +65,48 @@ public class ArtistController {
         String username = FindUsername.findLoggedInUsername();
         User user = userService.findByUsername(username);
         return user.getId();
+    }
+
+    @RequestMapping(value = {"/all"}, method = RequestMethod.GET)
+    public String showArtistsFirstPage(Model theModel) {
+        List<Artist> artistList = artistService.obtainArtistsByIdRangeFrom(Long.valueOf(0),Long.valueOf(ITEM_PER_PAGE-1));
+        List<Integer> numberOfFans = new ArrayList<>();
+        artistList.forEach((artist) -> {
+            numberOfFans.add(userService.getFansById(artist.getId()).size());
+        });
+        theModel.addAttribute("notFirstPage", false);
+        theModel.addAttribute("page", 1);
+        theModel.addAttribute("artistList", artistList);
+        theModel.addAttribute("numberOfFans", numberOfFans);
+        return "artist-list";
+    }
+
+    @RequestMapping(value = {"/all-page"}, method = RequestMethod.POST)
+    public String showArtistsInRange(@RequestParam("next") String next, @RequestParam("page") String page, Model theModel) {
+        int currentPage = Integer.parseInt(page)-1;
+        int itemFrom =currentPage * ITEM_PER_PAGE;
+        boolean isNext = Boolean.parseBoolean(next);
+        List<Artist> artistList = new ArrayList<>();
+        if(isNext) {
+            artistList = artistService.obtainArtistsByIdRangeFrom(Long.valueOf(itemFrom+ITEM_PER_PAGE+1),Long.valueOf(itemFrom+ITEM_PER_PAGE*2));
+            currentPage = currentPage+1;
+        } else {
+            artistList = artistService.obtainArtistsByIdRangeFrom(Long.valueOf(itemFrom-ITEM_PER_PAGE+1),Long.valueOf(itemFrom));
+            currentPage = currentPage-1;
+        }
+        if(artistList.size()==0) {
+            artistList = artistService.obtainArtistsByIdRangeFrom(Long.valueOf(itemFrom+1),Long.valueOf(itemFrom+ITEM_PER_PAGE));
+            currentPage = Integer.parseInt(page);
+        }
+
+        List<Integer> numberOfFans = new ArrayList<>();
+        artistList.forEach((artist) -> {
+            numberOfFans.add(userService.getFansById(artist.getId()).size());
+        });
+        theModel.addAttribute("notFirstPage", currentPage!=0);
+        theModel.addAttribute("page", currentPage+1);
+        theModel.addAttribute("artistList", artistList);
+        theModel.addAttribute("numberOfFans", numberOfFans);
+        return "artist-list";
     }
 }

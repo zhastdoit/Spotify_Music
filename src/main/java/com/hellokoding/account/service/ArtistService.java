@@ -11,6 +11,7 @@ public interface ArtistService {
     List<Artist> getArtistList();
     Artist getArtistById(Long id);
     List<Track> getArtistTrackList(String artistName);
+    List<Artist> obtainArtistsByIdRangeFrom(Long a, Long b);
     List<Artist> getArtistByKeyword(String keyword);
 
 }

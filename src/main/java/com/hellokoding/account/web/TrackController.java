@@ -4,6 +4,7 @@ import com.hellokoding.account.model.Artist;
 import com.hellokoding.account.model.Rate;
 import com.hellokoding.account.model.Track;
 import com.hellokoding.account.model.User;
+import com.hellokoding.account.service.ArtistService;
 import com.hellokoding.account.service.FindUsername;
 import com.hellokoding.account.service.TrackService;
 import com.hellokoding.account.service.UserService;
@@ -39,27 +40,28 @@ public class TrackController {
             scores.add(trackService.getAverageScore(tid).isPresent() ? trackService.getAverageScore(tid).get() :(Double) 0d);
         });
         theModel.addAttribute("notFirstPage", false);
-        theModel.addAttribute("fromIndex", 0);
+        theModel.addAttribute("page", 1);
         theModel.addAttribute("trackList", allTrack);
         theModel.addAttribute("scores", scores);
         return "tracks";
     }
 
     @RequestMapping(value = {"/all"}, method = RequestMethod.POST)
-    public String showTracksInRange(@RequestParam("next") String next, @RequestParam("fromIndex") String fromIndex, Model theModel) {
-        int currentFrom = Integer.parseInt(fromIndex);
+    public String showTracksInRange(@RequestParam("next") String next, @RequestParam("page") String page, Model theModel) {
+        int currentPage = Integer.parseInt(page)-1;
+        int itemFromIndex =currentPage*ITEM_PER_PAGE;
         boolean isNext = Boolean.parseBoolean(next);
         List<Track> allTrackInRange = new ArrayList<>();
         if(isNext) {
-            allTrackInRange = trackService.obtainTracksByIdRangeFrom(Long.valueOf(currentFrom+ITEM_PER_PAGE),Long.valueOf(currentFrom+ITEM_PER_PAGE*2)-1);
-            currentFrom = currentFrom+ITEM_PER_PAGE;
+            allTrackInRange = trackService.obtainTracksByIdRangeFrom(Long.valueOf(itemFromIndex+ITEM_PER_PAGE),Long.valueOf(itemFromIndex+ITEM_PER_PAGE*2)-1);
+            currentPage = currentPage+1;
         } else {
-            allTrackInRange = trackService.obtainTracksByIdRangeFrom(Long.valueOf(currentFrom-ITEM_PER_PAGE),Long.valueOf(currentFrom)-1);
-            currentFrom = currentFrom-ITEM_PER_PAGE;
+            allTrackInRange = trackService.obtainTracksByIdRangeFrom(Long.valueOf(itemFromIndex-ITEM_PER_PAGE),Long.valueOf(itemFromIndex)-1);
+            currentPage = currentPage-1;
         }
         if(allTrackInRange.size()==0) {
-            allTrackInRange = trackService.obtainTracksByIdRangeFrom(Long.valueOf(currentFrom),Long.valueOf(currentFrom+ITEM_PER_PAGE-1));
-            currentFrom = Integer.parseInt(fromIndex);
+            allTrackInRange = trackService.obtainTracksByIdRangeFrom(Long.valueOf(itemFromIndex),Long.valueOf(itemFromIndex+ITEM_PER_PAGE-1));
+            currentPage = Integer.parseInt(page);
         }
 
         List<Double> scores = new ArrayList<>();
@@ -67,8 +69,8 @@ public class TrackController {
             Long tid = track.getId();
             scores.add(trackService.getAverageScore(tid).isPresent() ? trackService.getAverageScore(tid).get() :(Double) 0d);
         });
-        theModel.addAttribute("notFirstPage", currentFrom!=0);
-        theModel.addAttribute("fromIndex", currentFrom);
+        theModel.addAttribute("notFirstPage", currentPage!=0);
+        theModel.addAttribute("page", currentPage+1);
         theModel.addAttribute("trackList", allTrackInRange);
         theModel.addAttribute("scores", scores);
         return "tracks";
@@ -78,6 +80,8 @@ public class TrackController {
     public String getArtistTrack(@PathVariable("id") Long id, Model theModel) {
         Track theTrack = trackService.findById(id);
         Double score = trackService.getAverageScore(theTrack.getId()).isPresent() ? trackService.getAverageScore(theTrack.getId()).get() : 0d;
+
+        theModel.addAttribute("artist",theTrack.getArtist());
         theModel.addAttribute("track", theTrack);
         theModel.addAttribute("avgScore", score);
         return "track";
