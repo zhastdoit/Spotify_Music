@@ -5,7 +5,7 @@
         <form id="logoutForm" method="POST" action="${contextPath}/logout">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
-        <h2>Welcome, ${pageContext.request.userPrincipal.name}!</h2>
+        <h2>Welcome, ${pageContext.request.userPrincipal.name}! &#9731;</h2>
     </c:if>
 
     <ul class="nav nav-tabs">
@@ -18,10 +18,43 @@
 
     <div class="tab-content">
         <div id="home" class="tab-pane fade in active">
-            <div class="form-group">
-                <label for="tracks">Recommended Tracks</label>
-                <input type="text" class="form-control" id="tracks"
-                       name="email" disabled value="">
+
+            <h3>Recommend for you</h3>
+            <div class="col-sm-6">
+            <h4>Tracks</h4>
+                <table class="table table-hover">
+                    <tr>
+                        <th>Track Name</th>
+                        <th>Duration</th>
+                    </tr>
+
+                    <!-- loop over and print our customers -->
+                    <c:forEach var="track" items="${recommendByRecentListen}">
+                        <tr>
+                            <td><a href="/track/${track.id}"> ${track.ttitle} </td>
+                            <td><a href="/track/${track.id}"> ${track.artist.aname} </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </div>
+            <div class="col-sm-6">
+                <h4>Artists</h4>
+                <table class="table table-hover">
+                    <tr>
+                        <th>Name</th>
+                        <th>Duration</th>
+                        <th>Genre</th>
+                    </tr>
+
+                    <!-- loop over and print our customers -->
+                    <c:forEach var="artist" items="${recommendByRecentListen}">
+                        <tr>
+                            <td><a href="/artist/${artist.id}"> ${artist.ttitle} </td>
+                            <td><a href="/artist/${artist.id}"> ${artist.tduration} </td>
+                            <td><a href="/artist/${artist.id}"> ${artist.genre} </td>
+                        </tr>
+                    </c:forEach>
+                </table>
             </div>
             <div class="form-group">
                 <label for="artists">Recommended Artists</label>

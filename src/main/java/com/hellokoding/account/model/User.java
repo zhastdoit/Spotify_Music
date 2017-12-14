@@ -56,6 +56,10 @@ public class User {
     @JoinColumn(name="uid")
     private List<Playlist> playlists;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="uid")
+    private List<Listen> listens;
+
     @Transient
     public String getPasswordConfirm() {
         return passwordConfirm;

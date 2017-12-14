@@ -28,7 +28,9 @@ public class Track {
     @JoinColumn(name="aid")
     private Artist artist;
 
-
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="tid")
+    private List<Listen> listens;
 
 	@ManyToMany(fetch=FetchType.LAZY, cascade= { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
 	@JoinTable(name="trackinplaylist", joinColumns=@JoinColumn(name="tid"), inverseJoinColumns=@JoinColumn(name="pid"))

@@ -2,6 +2,7 @@ package com.hellokoding.account.web;
 
 import com.hellokoding.account.model.Follow;
 import com.hellokoding.account.model.Rate;
+import com.hellokoding.account.model.Track;
 import com.hellokoding.account.model.User;
 import com.hellokoding.account.service.FindUsername;
 import com.hellokoding.account.service.SecurityService;
@@ -65,6 +66,8 @@ public class UserController {
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model) {
+        List<Track> recommendByRecentListen = trackService.recommendByRecentListen(getUidFromSystem());
+        model.addAttribute("recommendByRecentListen", recommendByRecentListen);
         return "welcome";
     }
 

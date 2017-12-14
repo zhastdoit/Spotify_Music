@@ -16,7 +16,4 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
 
     Like getByUidAndAid(Long uid, Long fid);
 
-//    @Query("select F from Follow F where F.uid = :userId")
-//    List<Follow> findFollowings(@Param("userId") Long uid);
-
 }
