@@ -52,7 +52,7 @@ public class PlaylistController {
 
     @RequestMapping(value = {"/newplaylist"}, method = RequestMethod.GET)
     public String newPlaylist(Model theModel) {
-        return "playlistadd";
+        return "playlist-add";
     }
 
 
@@ -60,7 +60,6 @@ public class PlaylistController {
     public String getTrackListByPlaylist(@PathVariable("id") Long id, Model theModel) {
 
         List<Track> playlistTrack = trackService.getTrackByPlaylist(id);
-        theModel.addAttribute("trackList", playlistTrack);
         List<Double> scores = new ArrayList<>();
         playlistTrack.forEach((track) -> {
             Long tid = track.getId();

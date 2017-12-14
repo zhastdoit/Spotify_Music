@@ -92,6 +92,23 @@ public class UserController {
         return "followings";
     }
 
+    @RequestMapping(value = "/Search", method = RequestMethod.GET)
+    public String mySearch(@RequestParam("Search") String searchContent, Model theModel) {
+        boolean isNumeric = true;
+        try {
+            int num = Integer.parseInt(searchContent);
+
+        } catch (NumberFormatException nfe) {
+            isNumeric = false;
+        }
+        if (isNumeric) {
+
+        } else {
+
+        }
+        return null;
+    }
+
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     public String userProfile(@PathVariable("id") Long fid, Model theModel) {
         User user = userService.findById(fid);

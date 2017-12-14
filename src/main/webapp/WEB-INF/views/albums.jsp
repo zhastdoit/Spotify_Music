@@ -11,8 +11,8 @@
         <!-- loop over and print our customers -->
         <c:forEach var="tempAlbum" items="${albums}">
             <tr>
-                <td> ${tempAlbum.alid} </td>
-                <td> ${tempAlbum.atitle} </td>
+                <td><a href="/album/${tempAlbum.alid}"> ${tempAlbum.alid} </td>
+                <td><a href="/album/${tempAlbum.alid}"> ${tempAlbum.atitle} </td>
 
             </tr>
 

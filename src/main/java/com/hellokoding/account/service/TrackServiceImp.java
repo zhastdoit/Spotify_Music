@@ -2,6 +2,7 @@ package com.hellokoding.account.service;
 
 import com.hellokoding.account.model.Rate;
 import com.hellokoding.account.model.Track;
+import com.hellokoding.account.repository.AlbumRepository;
 import com.hellokoding.account.repository.PlaylistRepository;
 import com.hellokoding.account.repository.RateRepository;
 import com.hellokoding.account.repository.TrackRepository;
@@ -23,6 +24,9 @@ public class TrackServiceImp implements TrackService {
 
     @Autowired
     private PlaylistRepository playlistRepository;
+
+    @Autowired
+    private AlbumRepository albumRepository;
 
     @Override
     public Track findById(Long id) {
@@ -53,4 +57,10 @@ public class TrackServiceImp implements TrackService {
     public List<Track> getTrackByPlaylist(Long pid) {
         return playlistRepository.getTrackByPlaylistId(pid);
     }
+
+    @Override
+    public List<Track> getTrackByAlbum(Long alid) {
+        return albumRepository.getTrackByAlbumId(alid);
+    }
+
 }

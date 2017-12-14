@@ -30,9 +30,9 @@
                         <li><a href="/artist/all">Artists</a></li>
                         <li><a href="/playlist/all">Playlist</a></li>
                     </ul>
-                    <form class="navbar-form navbar-left">
+                    <form method="POST" action="${contextPath}/Search}" class="navbar-form navbar-left">
                         <div class="form-group">
-                            <input name="content" type="text" class="form-control" placeholder="Search">
+                            <input name="Search" type="text" class="form-control" placeholder="Search">
                         </div>
                         <%--<button type="submit" class="btn btn-default">Submit</button>--%>
                     </form>
@@ -71,10 +71,10 @@
 
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
 </head>
 <body>

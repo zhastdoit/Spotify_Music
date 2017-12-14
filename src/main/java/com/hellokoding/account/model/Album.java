@@ -21,10 +21,10 @@ public class Album {
 
     @Column(name = "adate")
     private Timestamp timestamp;
-//
-//    @ManyToMany(fetch=FetchType.LAZY, cascade= { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
-//    @JoinTable(name="trackinalbum", joinColumns=@JoinColumn(name="aid"), inverseJoinColumns=@JoinColumn(name="tid"))
-//    private List<Track> trackList;
+
+    @ManyToMany(fetch=FetchType.LAZY, cascade= { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
+    @JoinTable(name="trackinalbum", joinColumns=@JoinColumn(name="alid"), inverseJoinColumns=@JoinColumn(name="tid"))
+    private List<Track> trackList;
 
     public Album() {}
 

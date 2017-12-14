@@ -7,7 +7,8 @@
     <table class="table table-hover">
         <tr>
             <th>List ID</th>
-            <th>Add Date</th>
+            <th>Name</th>
+            <th>Adding Time</th>
             <th>Public</th>
         </tr>
 
@@ -16,7 +17,8 @@
             <tr>
                 <td><a href="/playlist/${tempPlaylist.pid}"> ${tempPlaylist.pid} </td>
                 <td><a href="/playlist/${tempPlaylist.pid}"> ${tempPlaylist.pname} </td>
-                <td><a href="/playlist/${tempPlaylist.pid}"> ${tempPlaylist.canSee} </td>
+                <td> ${tempPlaylist.timestamp.toString().split("\\s+")[0]} </td>
+                <td> ${tempPlaylist.canSee == false ? "&#xf06e" : "&#xf070" } </td>
             </tr>
 
         </c:forEach>

@@ -13,4 +13,5 @@ public interface TrackService {
     Optional<Double> getAverageScore(Long tid);
     List<Track> getTrackList();
     List<Track> getTrackByPlaylist(Long pid);
+    List<Track> getTrackByAlbum(Long alid);
 }

@@ -39,6 +39,7 @@
                 <td><a href="/track/${track.id}"> ${track.ttitle} </td>
                 <td><a href="/track/${track.id}"> ${track.tduration} </td>
                 <td><a href="/track/${track.id}"> ${track.genre} </td>
+
             </tr>
 
         </c:forEach>
