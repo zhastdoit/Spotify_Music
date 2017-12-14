@@ -1,4 +1,5 @@
 <%@ include file="parts/header.jsp" %>
+<body>
 <div class="container">
     <div class="col-md-12">
         <h2>${user.username}</h2>

@@ -1,4 +1,5 @@
 <%@ include file="parts/header.jsp" %>
+<body>
 <div class="container">
     <form method="POST" action="${contextPath}/playlist/new" class="form-signin form-inline">
 

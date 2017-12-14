@@ -21,4 +21,6 @@ public interface TrackService {
     List<Listen> getListenByUserID(Long uid);
     List<Track> recommendByRecentListen(Long uid);
 
+    List<Track> getTrackByKeyword(String keyword);
+    List<Track> getTracksByGenreKeyword(String genre);
 }

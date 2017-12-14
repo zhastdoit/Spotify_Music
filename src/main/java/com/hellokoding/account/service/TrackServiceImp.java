@@ -118,4 +118,15 @@ public class TrackServiceImp implements TrackService {
         return albumRepository.getTrackByAlbumId(alid);
     }
 
+    @Override
+    public List<Track> getTrackByKeyword(String keyword) {
+        return trackRepository.getTop10TracksByTtitleLike(keyword);
+    }
+
+    @Override
+    public List<Track> getTracksByGenreKeyword(String genre) {
+        return trackRepository.getTop10TracksByGenreLike(genre);
+    }
+
+
 }

@@ -18,4 +18,9 @@ public class AlbumServiceImp implements AlbumService {
         return albumRepository.findAll();
     }
 
+    @Override
+    public List<Album> getAlbumByKeyword(String keyword) {
+        return albumRepository.getTop10AlbumsByAtitleLike(keyword);
+    }
+
 }

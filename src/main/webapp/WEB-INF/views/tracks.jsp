@@ -1,4 +1,5 @@
 <%@ include file="parts/header.jsp" %>
+<body>
 <div class="container">
     <h2>Tracks</h2>
     <div style="overflow-y: auto">

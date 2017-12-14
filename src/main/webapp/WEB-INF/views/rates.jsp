@@ -1,5 +1,5 @@
 <%@ include file="parts/header.jsp" %>
-
+<body>
 <table>
     <tr>
         <th>User ID</th>

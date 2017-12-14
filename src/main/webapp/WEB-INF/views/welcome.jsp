@@ -1,4 +1,5 @@
 <%@ include file="parts/header.jsp" %>
+<body>
 <div class="container">
 
     <c:if test="${pageContext.request.userPrincipal.name != null}">

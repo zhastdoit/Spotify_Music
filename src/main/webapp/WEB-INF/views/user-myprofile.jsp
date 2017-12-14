@@ -1,4 +1,5 @@
 <%@ include file="parts/header.jsp" %>
+<body>
 <div class="container">
     <h2>${user.username}'s Profile</h2>
     <p><span class="glyphicon glyphicon-user" aria-hidden="true">Followers: ${numberOfFollowers}  <span class="glyphicon glyphicon-heart" aria-hidden="true"></span> Following: ${numberOfFollowings} </p>

@@ -10,4 +10,7 @@ import java.util.List;
 public interface ArtistRepository extends JpaRepository<Artist, Long> {
     @Query("select A from Artist A where A.id = :artistid")
     Artist getArtistFromId(@Param("artistid") Long id);
+
+    List<Artist> getTop10ArtistsByAnameLike(String keyword);
+
 }

@@ -1,6 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="parts/header.jsp" %>
-
+<body>
 <div class="container">
 
     <form:form method="POST" modelAttribute="userForm" class="form-signin">

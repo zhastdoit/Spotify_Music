@@ -34,4 +34,9 @@ public class ArtistServiceImp implements ArtistService {
         return artistRepository.getArtistFromId(id);
     }
 
+    @Override
+    public List<Artist> getArtistByKeyword(String keyword) {
+        return artistRepository.getTop10ArtistsByAnameLike(keyword);
+    }
+
 }

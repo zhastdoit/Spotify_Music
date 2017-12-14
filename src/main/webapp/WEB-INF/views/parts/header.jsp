@@ -30,9 +30,10 @@
                         <li><a href="/artist/all">Artists</a></li>
                         <li><a href="/playlist/all">Playlist</a></li>
                     </ul>
-                    <form method="POST" action="${contextPath}/Search}" class="navbar-form navbar-left">
+                    <form method="POST" action="${contextPath}/search" class="navbar-form navbar-left">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         <div class="form-group">
-                            <input name="Search" type="text" class="form-control" placeholder="Search">
+                            <input name="search" type="text" class="form-control" placeholder="Search">
                         </div>
                         <%--<button type="submit" class="btn btn-default">Submit</button>--%>
                     </form>
@@ -68,13 +69,13 @@
     <meta name="author" content="">
 
     <title>Welcome</title>
-
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'><!--web font-->
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
 <![endif]-->
 </head>
-<body>

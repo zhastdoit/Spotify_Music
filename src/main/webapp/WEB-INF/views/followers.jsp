@@ -1,4 +1,5 @@
 <%@ include file="parts/header.jsp" %>
+<body>
 <div class="container">
     <h2>My Followers</h2>
     <table class="table table-hover">

@@ -1,13 +1,7 @@
 package com.hellokoding.account.web;
 
-import com.hellokoding.account.model.Follow;
-import com.hellokoding.account.model.Rate;
-import com.hellokoding.account.model.Track;
-import com.hellokoding.account.model.User;
-import com.hellokoding.account.service.FindUsername;
-import com.hellokoding.account.service.SecurityService;
-import com.hellokoding.account.service.TrackService;
-import com.hellokoding.account.service.UserService;
+import com.hellokoding.account.model.*;
+import com.hellokoding.account.service.*;
 import com.hellokoding.account.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class UserController {
@@ -30,6 +24,14 @@ public class UserController {
 
     @Autowired
     private TrackService trackService;
+
+    @Autowired
+    private AlbumService albumService;
+
+    @Autowired
+    private ArtistService artistService;
+
+
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
@@ -95,21 +97,66 @@ public class UserController {
         return "followings";
     }
 
-    @RequestMapping(value = "/Search", method = RequestMethod.GET)
-    public String mySearch(@RequestParam("Search") String searchContent, Model theModel) {
-        boolean isNumeric = true;
-        try {
-            int num = Integer.parseInt(searchContent);
-
-        } catch (NumberFormatException nfe) {
-            isNumeric = false;
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public String mySearch(@RequestParam("search") String searchContent, Model theModel) {
+        List<Album> getAlbumByKeyword = new ArrayList<>();
+        List<Track> getTrackByKeyword = new ArrayList<>();
+        List<Track> getTrackByGenre = new ArrayList<>();
+        List<Artist> getArtistByKeyword = new ArrayList<>();
+        boolean hasArtistList = true;
+        boolean hasAlbumList = true;
+        boolean hasTrackGenreList = false;
+        boolean hasTrackList = true;
+        Set<String> genreSet = new HashSet<>(Arrays.asList("pop", "r&b", "jazz", "blues", "country", "classical", "metal", "popular", "rap"));
+        if (genreSet.contains(searchContent.toLowerCase())) {
+            getTrackByGenre = trackService.getTracksByGenreKeyword(searchContent);
+            hasTrackGenreList = true;
+            theModel.addAttribute("hasTrackGenreList", hasTrackGenreList);
+            theModel.addAttribute("trackGenreResult", getTrackByGenre);
         }
-        if (isNumeric) {
-
-        } else {
-
+        else {
+            theModel.addAttribute("hasTrackGenreList", hasTrackGenreList);
         }
-        return null;
+        getArtistByKeyword = artistService.getArtistByKeyword(searchContent);
+        getTrackByKeyword = trackService.getTrackByKeyword(searchContent);
+        getAlbumByKeyword = albumService.getAlbumByKeyword(searchContent);
+        if ((getTrackByGenre== null
+            && getArtistByKeyword == null
+                && getTrackByKeyword == null
+                && getAlbumByKeyword == null)
+                || (getTrackByGenre.size() == 0
+                && getArtistByKeyword.size() == 0
+                && getTrackByKeyword.size() == 0
+                && getAlbumByKeyword.size() == 0)) {
+            return "not-found-page";
+        }
+        else {
+            if (getArtistByKeyword != null || getArtistByKeyword.size() != 0) {
+                theModel.addAttribute("hasArtistList", hasArtistList);
+                theModel.addAttribute("aritstResult", getArtistByKeyword);
+            }
+            else {
+                hasArtistList = false;
+                theModel.addAttribute("hasArtistList", hasArtistList);
+            }
+            if (getAlbumByKeyword != null || getAlbumByKeyword.size() != 0) {
+                theModel.addAttribute("hasAlbumList", hasAlbumList);
+                theModel.addAttribute("albumResult", getAlbumByKeyword);
+            }
+            else {
+                hasAlbumList = false;
+                theModel.addAttribute("hasAlbumList", hasAlbumList);
+            }
+            if (getTrackByKeyword != null || getTrackByKeyword.size() != 0) {
+                theModel.addAttribute("hasTrackList", hasTrackList);
+                theModel.addAttribute("trackResult", getTrackByKeyword);
+            }
+            else {
+                hasTrackList = false;
+                theModel.addAttribute("hasTrackList", hasTrackList);
+            }
+            return "result";
+        }
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)

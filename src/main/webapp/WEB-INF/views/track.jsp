@@ -1,4 +1,5 @@
 <%@ include file="parts/header.jsp" %>
+<body>
 <div class="container">
     <h3>Now Playing</h3>
     <h1>${track.ttitle}</h1>

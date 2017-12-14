@@ -1,4 +1,5 @@
 <%@ include file="parts/header.jsp" %>
+<body>
 <div class="container">
 
     <button type="button" class="btn btn-default pull-right"
@@ -18,7 +19,7 @@
                 <td><a href="/playlist/${tempPlaylist.pid}"> ${tempPlaylist.pid} </td>
                 <td><a href="/playlist/${tempPlaylist.pid}"> ${tempPlaylist.pname} </td>
                 <td> ${tempPlaylist.timestamp.toString().split("\\s+")[0]} </td>
-                <td> ${tempPlaylist.canSee == false ? "&#xf06e" : "&#xf070" } </td>
+                <td> ${tempPlaylist.canSee == false ? "&#128275;" : "&#128274;" } </td>
             </tr>
 
         </c:forEach>
