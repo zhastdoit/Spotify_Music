@@ -108,7 +108,10 @@ public class TrackServiceImp implements TrackService {
             Artist mostRecentArtist = trackRepository.findById(listen.getTid()).getArtist();
             recommendation.addAll(trackRepository.getTop3ByArtist(mostRecentArtist));
         });
-        recommendation.add(trackRepository.findById(mostRecentListen.get(0).getTid()));
+        if(mostRecentListen!=null && mostRecentListen.size()>1){
+            recommendation.add(trackRepository.findById(mostRecentListen.get(0).getTid()));
+        }
+
         return recommendation;
     }
 
@@ -141,8 +144,10 @@ public class TrackServiceImp implements TrackService {
         List<Track> tracks = new ArrayList<>();
         followings.stream().forEach(f -> {
             List<Track> list = getListenedTracksByUid(f.getUid());
-            tracks.add(list.get(0));
-            tracks.add(list.get(1));
+            if (list.size() > 2) {
+                tracks.add(list.get(0));
+                tracks.add(list.get(1));
+            }
         });
         return tracks;
     }

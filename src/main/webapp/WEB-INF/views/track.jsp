@@ -1,5 +1,5 @@
 <%@ include file="parts/header.jsp" %>
-<body>
+<body style="background: url(https://www.arapahoe-phil.org/wp-content/uploads/2017/05/spring-musical-notes-3257.jpg)no-repeat center 0px;">
 <div class="container">
     <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
         <img src="${track.timage}" class="img-circle" height="140" width="140">

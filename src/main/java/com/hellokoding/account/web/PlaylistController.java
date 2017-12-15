@@ -63,7 +63,7 @@ public class PlaylistController {
         List<Track> playlistTrack = new ArrayList<>();
         List<Double> scores = new ArrayList<>();
         String alert = "";
-        if(!thePlaylist.getUid().equals(getUidFromSystem())) {
+        if(!thePlaylist.getUid().equals(getUidFromSystem()) && !thePlaylist.getCanSee()) {
             alert = "&#128275; This is a private playlist";
         } else {
             playlistTrack = trackService.getTrackByPlaylist(id);

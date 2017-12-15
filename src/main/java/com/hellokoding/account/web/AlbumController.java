@@ -66,10 +66,10 @@ public class AlbumController {
         boolean isNext = Boolean.parseBoolean(next);
         List<Album> allAlbumInRange = new ArrayList<>();
         if(isNext) {
-            allAlbumInRange = albumService.getAllByIdBetween(Long.valueOf(itemFromIndex+ITEM_PER_PAGE),Long.valueOf(itemFromIndex+ITEM_PER_PAGE*2)-1);
+            allAlbumInRange = albumService.getAllByIdBetween(Long.valueOf(itemFromIndex+ITEM_PER_PAGE),Long.valueOf(itemFromIndex+ITEM_PER_PAGE*2));
             currentPage = currentPage+1;
         } else {
-            allAlbumInRange = albumService.getAllByIdBetween(Long.valueOf(itemFromIndex-ITEM_PER_PAGE),Long.valueOf(itemFromIndex)-1);
+            allAlbumInRange = albumService.getAllByIdBetween(Long.valueOf(itemFromIndex-ITEM_PER_PAGE),Long.valueOf(itemFromIndex));
             currentPage = currentPage-1;
         }
         if(allAlbumInRange.size()==0) {
@@ -77,7 +77,7 @@ public class AlbumController {
             currentPage = Integer.parseInt(page);
         }
         theModel.addAttribute("notFirstPage", currentPage != 0);
-        theModel.addAttribute("page", currentPage);
+        theModel.addAttribute("page", currentPage+1);
         theModel.addAttribute("albums", allAlbumInRange);
         return "albums";
     }
