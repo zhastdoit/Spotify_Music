@@ -1,6 +1,7 @@
 package com.hellokoding.account.model;
 
 import lombok.Data;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,6 +24,13 @@ public class Track {
 
     @Column(name="tgenre")
     private String genre;
+
+    @Column(name="timage")
+    private String timage;
+
+    @Column(name="trackurl")
+    private String trackurl;
+
 
     @ManyToOne(cascade= { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
     @JoinColumn(name="aid")

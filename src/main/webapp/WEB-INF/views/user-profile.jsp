@@ -1,6 +1,9 @@
 <%@ include file="parts/header.jsp" %>
 <body>
 <div class="container">
+    <div class="col-sm-2">
+        <img src="${user.uimage}" class="img-circle" height="140" width="140">
+    </div>
     <div class="col-md-12">
         <h2>${user.username}</h2>
         <h5 style="white-space:pre"> <span class="glyphicon glyphicon-user" aria-hidden="true"> Followers: ${numberOfFollowers} <span class="glyphicon glyphicon-heart" aria-hidden="true"></span> Following: ${numberOfFollowings} </h5>

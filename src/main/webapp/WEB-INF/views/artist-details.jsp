@@ -1,7 +1,9 @@
 <%@ include file="parts/header.jsp" %>
 <body>
 <div class="container">
-
+    <div class="col-sm-2">
+        <img src="${artist.aimage}" class="img-circle" height="140" width="140">
+    </div>
     <h2>${artist.aname}</h2>
     <h5 style="white-space:pre"> <span class="glyphicon glyphicon-heart" aria-hidden="true"> Fans: ${numberOfFans}  </h5>
     <div class="col-xs-12">
@@ -41,6 +43,19 @@
                 <td> <button type="button" class="btn btn-default" aria-label="Left Align">
                     <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                 </button> </td>
+                <td>
+                    <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${pageContext.request.userPrincipal.name}<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <%--<c:forEach>--%>
+                            <%--<li>${playlist.pname}</li>--%>
+                        <%--</c:forEach>--%>
+                        <li role="separator" class="divider"></li>
+                        <li><a onclick="document.forms['logoutForm'].submit()">Logout</a></ul></li>
+                    <a href="javascript:{}" onclick="document.getElementById('rate').submit();">Rate</a>
+                </ul>
+                </li>
+                </td>
                 <td><a href="/track/${track.id}"> ${track.ttitle} </td>
                 <td><a href="/track/${track.id}"> ${track.genre} </td>
                 <td> ${(track.tduration/60).intValue().toString()}:${(track.tduration%60).intValue()} </td>

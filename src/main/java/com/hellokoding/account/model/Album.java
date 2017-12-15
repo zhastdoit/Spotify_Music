@@ -26,6 +26,9 @@ public class Album {
     @JoinTable(name="trackinalbum", joinColumns=@JoinColumn(name="alid"), inverseJoinColumns=@JoinColumn(name="tid"))
     private List<Track> trackList;
 
+    @Column(name="alimage")
+    private String alimage;
+
     public Album() {}
 
     public Album(String atitle) {

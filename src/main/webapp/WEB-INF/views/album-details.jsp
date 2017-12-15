@@ -1,8 +1,11 @@
 <%@ include file="parts/header.jsp" %>
 <body>
 <div class="container">
-
+    <div class="col-sm-2">
+        <img src="${album.alimage}" class="img-thumbnail" height="140" width="140">
+    </div>
     <h2>${album.atitle}</h2>
+
     <table class="table table-hover">
         <tr>
             <th>+ ADD</th>

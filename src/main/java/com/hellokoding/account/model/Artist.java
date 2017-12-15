@@ -22,6 +22,9 @@ public class Artist {
     @Column(name="aname")
     private String aname;
 
+    @Column(name="aimage")
+    private String aimage;
+
     @Column(name="description")
     private String description;
 

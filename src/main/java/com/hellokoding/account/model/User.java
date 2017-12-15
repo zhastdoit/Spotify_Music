@@ -2,6 +2,7 @@ package com.hellokoding.account.model;
 
 
 import lombok.Data;
+import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -28,6 +29,9 @@ public class User {
 
     @Column(name="city")
     private String city;
+
+    @Column(name="uimage")
+    private String uimage;
 
     @Transient
     private String passwordConfirm;

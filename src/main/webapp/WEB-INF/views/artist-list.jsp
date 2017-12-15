@@ -1,6 +1,7 @@
 <%@ include file="parts/header.jsp" %>
 <body>
 <div class="container">
+
     <h2>Artists</h2>
     <table class="table table-hover">
         <tr>
