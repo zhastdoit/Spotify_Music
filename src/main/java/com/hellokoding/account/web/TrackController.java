@@ -1,10 +1,7 @@
 package com.hellokoding.account.web;
 
 import com.hellokoding.account.model.*;
-import com.hellokoding.account.service.ArtistService;
-import com.hellokoding.account.service.FindUsername;
-import com.hellokoding.account.service.TrackService;
-import com.hellokoding.account.service.UserService;
+import com.hellokoding.account.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +25,9 @@ public class TrackController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PlaylistService playlistService;
+
 
     @RequestMapping(value = {"/all"}, method = RequestMethod.GET)
     public String showAllTrack(Model theModel) {
@@ -37,6 +37,8 @@ public class TrackController {
             Long tid = track.getId();
             scores.add(trackService.getAverageScore(tid).isPresent() ? trackService.getAverageScore(tid).get() :(Double) 0d);
         });
+        List<Playlist> playlists = playlistService.getUserPlaylist(getUidFromSystem());
+        theModel.addAttribute("playlists",playlists);
         theModel.addAttribute("notFirstPage", false);
         theModel.addAttribute("page", 1);
         theModel.addAttribute("trackList", allTrack);
@@ -67,6 +69,8 @@ public class TrackController {
             Long tid = track.getId();
             scores.add(trackService.getAverageScore(tid).isPresent() ? trackService.getAverageScore(tid).get() :(Double) 0d);
         });
+        List<Playlist> playlists = playlistService.getUserPlaylist(getUidFromSystem());
+        theModel.addAttribute("playlists",playlists);
         theModel.addAttribute("notFirstPage", currentPage!=0);
         theModel.addAttribute("page", currentPage+1);
         theModel.addAttribute("trackList", allTrackInRange);
@@ -79,6 +83,8 @@ public class TrackController {
         Track theTrack = trackService.findById(id);
         Double score = trackService.getAverageScore(theTrack.getId()).isPresent() ? trackService.getAverageScore(theTrack.getId()).get() : 0d;
         trackService.saveListen(getUidFromSystem(), id);
+        List<Playlist> playlists = playlistService.getUserPlaylist(getUidFromSystem());
+        theModel.addAttribute("playlists",playlists);
         theModel.addAttribute("artist",theTrack.getArtist());
         theModel.addAttribute("track", theTrack);
         theModel.addAttribute("avgScore", score);
@@ -95,6 +101,13 @@ public class TrackController {
         Long uid = user.getId();
         Rate theRate = new Rate(uid, trackId, score);
         trackService.saveRate(theRate);
+        Track theTrack = trackService.findById(trackId);
+        List<Playlist> playlists = playlistService.getUserPlaylist(getUidFromSystem());
+        Double avgScore = trackService.getAverageScore(theTrack.getId()).isPresent() ? trackService.getAverageScore(theTrack.getId()).get() : 0d;
+        theModel.addAttribute("playlists",playlists);
+        theModel.addAttribute("artist",theTrack.getArtist());
+        theModel.addAttribute("track", theTrack);
+        theModel.addAttribute("avgScore", avgScore);
         return "redirect:/track/" + id;
     }
 

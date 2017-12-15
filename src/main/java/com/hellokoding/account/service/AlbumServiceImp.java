@@ -28,4 +28,8 @@ public class AlbumServiceImp implements AlbumService {
         return albumRepository.getAlbumByAlid(alid);
     }
 
+    @Override
+    public List<Album> getAllByIdBetween(Long a, Long b) {
+        return albumRepository.getAllByAlidBetween(a, b);
+    }
 }

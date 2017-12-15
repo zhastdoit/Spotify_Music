@@ -10,5 +10,5 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface TrackInPlaylistRepository extends JpaRepository<TrackInPlaylist, Long> {
-
+    TrackInPlaylist getByPidAndTid(Long pid, Long tid);
 }

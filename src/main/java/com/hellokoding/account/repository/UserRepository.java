@@ -8,7 +8,4 @@ import org.springframework.data.jpa.repository.Query;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findById(Long id);
     User findByUsername(String username);
-
-//    @Query("Select User from User U Where U.id = :uid")
-//    User findUserWithID(@Param("uid") Long id);
 }

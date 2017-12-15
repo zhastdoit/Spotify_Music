@@ -29,6 +29,14 @@
             </div>
         </spring:bind>
 
+        <spring:bind path="uimage">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="text" path="uimage" class="form-control" placeholder="Your Image url"
+                            autofocus="true"></form:input>
+                <form:errors path="uimage"></form:errors>
+            </div>
+        </spring:bind>
+
         <spring:bind path="password">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="password" path="password" class="form-control" placeholder="Password"></form:input>

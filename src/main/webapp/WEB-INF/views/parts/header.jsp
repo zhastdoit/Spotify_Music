@@ -43,12 +43,10 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${pageContext.request.userPrincipal.name}<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="/myprofile">MyProfile</a></li>
-                                <li><a href="/welcome/#favorite">Favorite Artist</a></li>
+                                <li><a href="/artist/favorite">Favorite Artist</a></li>
                                 <li><a href="/followers">My Followers</a></li>
                                 <li><a href="/followings">My Followings</a></li>
                                 <li><a href="/rates">My Rates</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a onclick="document.forms['logoutForm'].submit()">Logout</a></ul></li>
                             </ul>

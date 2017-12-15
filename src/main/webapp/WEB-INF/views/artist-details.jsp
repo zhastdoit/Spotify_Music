@@ -38,7 +38,7 @@
                 <th>ADD</th>
                 <th>Name</th>
                 <th>Genre</th>
-                <th>LENGTH</th>
+                <th>Duration</th>
             </tr>
 
         <!-- loop over and print our customers -->
@@ -51,6 +51,8 @@
                                 <c:forEach var="playlist" items="${playlists}">
                                         <li><a href="/playlist/${playlist.pid}/addToPlaylist/${track.id}"> ${playlist.pname} </a></li>
                                 </c:forEach>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/playlist/newplaylist">New Playlist</a></li>
                             </ul>
                         </li>
                     </td>

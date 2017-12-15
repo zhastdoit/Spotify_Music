@@ -80,6 +80,11 @@ public class PlaylistController {
         return "playlist-details";
     }
 
+    @RequestMapping(value = {"/{pid}/remove/{tid}"}, method = RequestMethod.GET)
+    public String removeTrackInPlaylist(@PathVariable("pid") Long pid, @PathVariable("tid") Long tid, Model theModel) {
+        playlistService.removeTrackInPlaylist(pid,tid);
+        return "redirect:/playlist/"+pid;
+    }
 
     @RequestMapping(value = {"/{pid}/addToPlaylist/{tid}"}, method = RequestMethod.GET)
     public String getTrackListByPlaylist(@PathVariable("pid") Long pid, @PathVariable("tid") Long tid, Model theModel) {

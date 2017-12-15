@@ -124,4 +124,16 @@ public class ArtistController {
         theModel.addAttribute("numberOfFans", numberOfFans);
         return "artist-list";
     }
+
+    @RequestMapping(value = {"/favorite"}, method = RequestMethod.GET)
+    public String showFavoriteArtists(Model theModel) {
+        List<Artist> artistList = artistService.getFavoriteArtistsByUid(getUidFromSystem());
+        List<Integer> numberOfFans = new ArrayList<>();
+        artistList.forEach((artist) -> {
+            numberOfFans.add(userService.getFansById(artist.getId()).size());
+        });
+        theModel.addAttribute("artistList", artistList);
+        theModel.addAttribute("numberOfFans", numberOfFans);
+        return "artist-list-all";
+    }
 }

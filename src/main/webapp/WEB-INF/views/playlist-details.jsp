@@ -8,20 +8,27 @@
     <div>
         <table class="table table-hover">
             <tr>
-                <th>Add</th>
+                <th>Remove</th>
                 <th>Name</th>
+                <th>Artist</th>
                 <th>Genre</th>
                 <th>Duration</th>
-                <th>SCORE</th>
+                <th>Score</th>
             </tr>
 
         <!-- loop over and print our customers -->
         <c:forEach var="track" items="${trackList}" varStatus="loop">
             <tr>
-                <td> <button type="button" class="btn btn-default" aria-label="Left Align">
-                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                </button> </td>
+                <td>
+                    <form method="GET" action="${contextPath}/playlist/${playlist.pid}/remove/${track.id}">
+                        <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+                        <button type="submit" class="btn btn-default" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>
+                        </button>
+                    </form>
+                </td>
                 <td><a href="/track/${track.id}"> ${track.ttitle} </td>
+                <td><a href="/artist/${track.artist.id}"> ${track.artist.aname} </td>
                 <td><a href="/track/${track.id}"> ${track.genre} </td>
                 <td> ${(track.tduration/60).intValue().toString()}:${(track.tduration%60).intValue()} </td>
                 <td> ${scores.get(loop.index)} </td>

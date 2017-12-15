@@ -42,4 +42,10 @@ public class PlaylistServiceImp implements PlaylistService {
     public void saveTrackInPlaylist(TrackInPlaylist obj) {
         trackInPlaylistRepository.save(obj);
     }
+
+    @Override
+    public void removeTrackInPlaylist(Long pid, Long tid) {
+        TrackInPlaylist obj = trackInPlaylistRepository.getByPidAndTid(pid,tid);
+        trackInPlaylistRepository.delete(obj);
+    }
 }

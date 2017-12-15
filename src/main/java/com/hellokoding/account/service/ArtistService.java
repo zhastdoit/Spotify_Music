@@ -13,5 +13,5 @@ public interface ArtistService {
     List<Track> getArtistTrackList(String artistName);
     List<Artist> obtainArtistsByIdRangeFrom(Long a, Long b);
     List<Artist> getArtistByKeyword(String keyword);
-
+    List<Artist> getFavoriteArtistsByUid(Long uid);
 }

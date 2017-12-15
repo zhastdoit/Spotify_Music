@@ -12,6 +12,8 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
 
     List<Like> getAllByAid(Long id);
 
+    List<Like> getAllByUid(Long id);
+
     Long countAllByAid(Long id);
 
     Like getByUidAndAid(Long uid, Long fid);

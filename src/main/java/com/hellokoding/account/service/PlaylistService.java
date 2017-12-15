@@ -10,5 +10,5 @@ public interface PlaylistService {
     void savePlaylist(Playlist playlist);
     Playlist getPlaylistWithPid(Long pid);
     void saveTrackInPlaylist(TrackInPlaylist obj);
-
+    void removeTrackInPlaylist(Long pid, Long tid);
 }

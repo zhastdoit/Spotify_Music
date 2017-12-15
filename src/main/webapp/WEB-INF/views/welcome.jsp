@@ -10,27 +10,18 @@
         <p>&#9731; It's cold outside. Come inside!</p>
     </c:if>
 
-    <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a data-toggle="pill" href="#home">Home</a></li>
-        <li role="presentation"><a data-toggle="pill" href="#profile">Profile</a></li>
-        <li role="presentation"><a data-toggle="pill" href="#favorite">Favorite Artists</a></li>
-        <li role="presentation"><a data-toggle="pill" href="#following">Following</a></li>
-        <li role="presentation"><a data-toggle="pill" href="#followers">Followers</a></li>
-    </ul>
-
     <div class="tab-content">
-        <div id="home" class="tab-pane fade in active">
-
+        <div id="home">
             <h3>Recommend for you</h3>
             <div class="col-sm-6">
-            <h4>Highly Popular</h4>
+                <h4>Highly Popular</h4>
                 <table class="table table-hover">
                     <tr>
-                        <th>NAME</th>
-                        <th>ARTIST</th>
-                        <th>GENRE</th>
-                        <th>LENGTH</th>
-                        <th>SCORE</th>
+                        <th>Name</th>
+                        <th>Artist</th>
+                        <th>Genre</th>
+                        <th>Length</th>
+                        <th>Score</th>
                     </tr>
 
                     <!-- loop over and print our customers -->
@@ -49,11 +40,11 @@
                 <h4>History</h4>
                 <table class="table table-hover">
                     <tr>
-                        <th>NAME</th>
-                        <th>ARTIST</th>
-                        <th>GENRE</th>
-                        <th>LENGTH</th>
-                        <th>SCORE</th>
+                        <th>Name</th>
+                        <th>Artist</th>
+                        <th>Genre</th>
+                        <th>Length</th>
+                        <th>Score</th>
                     </tr>
 
                     <!-- loop over and print our customers -->
@@ -68,50 +59,7 @@
                     </c:forEach>
                 </table>
             </div>
-            <div class="form-group">
-                <label for="artists">Recommended Artists</label>
-                <input type="text" class="form-control" id="artists"
-                       name="username" disabled value="">
-            </div>
-        </div>
-        <div id="profile" class="tab-pane fade">
-            <div class="col-xs-offset-10"></div><a href="/user/edit">Edit</a>
-            <div class="form-group col-sm-8">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username"
-                       name="username" disabled value="">
-            </div>
-            <div class="form-group col-sm-8">
-                <label for="city">City</label>
-                <input type="text" class="form-control" id="city"
-                       name="city" disabled value="">
-            </div>
-            <div class="form-group col-sm-8">
-                <label for="email">E-mail</label>
-                <input type="text" class="form-control" id="email"
-                       name="email" disabled value="">
-            </div>
-        </div>
-        <div id="favorite" class="tab-pane fade">
-
-            <h4>Recommended Artists</h4>
-            <form class="navbar-form">
-                <button type="button" class="btn btn-large btn-success" (click)="resetPassword()">Reset password via email</button>
-            </form>
-        </div>
-        <div id="following" class="tab-pane fade">
-            <h4>Following</h4>
-            <form class="navbar-form">
-                <button type="button" class="btn btn-large btn-success" (click)="resetPassword()">Reset password via email</button>
-            </form>
-        </div>
-        <div id="followers" class="tab-pane fade">
-            <h4>Followers</h4>
-            <form class="navbar-form">
-                <button type="button" class="btn btn-large btn-success" (click)="resetPassword()">Reset password via email</button>
-            </form>
         </div>
     </div>
-
 </div>
 <%@ include file="parts/footer.jsp" %>
