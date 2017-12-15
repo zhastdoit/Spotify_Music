@@ -15,4 +15,8 @@ public interface RateRepository extends JpaRepository<Rate, Long> {
     @Query("select avg(R.score) as score from Rate R where R.tid = :tid ")
     Optional<Double> getAverageScore(@Param("tid") Long tid);
 
+
+    List<Rate> findAllByOrderByScoreDesc();
+
+
 }

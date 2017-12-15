@@ -38,9 +38,10 @@
                 <th>ADD</th>
                 <th>Name</th>
                 <th>Genre</th>
-                <th>Duration</th>
+                <th>LENGTH</th>
             </tr>
 
+        <!-- loop over and print our customers -->
             <c:forEach var="track" items="${track}">
                 <tr>
                     <td>

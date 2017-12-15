@@ -12,10 +12,11 @@
             <th>Name</th>
             <th>Genre</th>
             <th>LENGTH</th>
+            <th>SCORE</th>
         </tr>
 
         <!-- loop over and print our customers -->
-        <c:forEach var="track" items="${trackList}">
+        <c:forEach var="track" items="${trackList}" varStatus="loop">
             <tr>
                 <td> <button type="button" class="btn btn-default" aria-label="Left Align">
                     <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
@@ -23,6 +24,7 @@
                 <td><a href="/track/${track.id}"> ${track.ttitle} </td>
                 <td><a href="/track/${track.id}"> ${track.genre} </td>
                 <td> ${(track.tduration/60).intValue().toString()}:${(track.tduration%60).intValue()} </td>
+                <td> ${scores.get(loop.index)} </td>
             </tr>
 
         </c:forEach>

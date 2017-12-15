@@ -19,4 +19,5 @@ public interface TrackRepository extends JpaRepository<Track, Long> {
 
 
     List<Track> getTop10TracksByGenreContains(String genre);
+
 }

@@ -6,6 +6,7 @@ import com.hellokoding.account.model.Track;
 import com.hellokoding.account.model.User;
 import com.hellokoding.account.service.ArtistService;
 import com.hellokoding.account.service.FindUsername;
+import com.hellokoding.account.service.TrackService;
 import com.hellokoding.account.service.PlaylistService;
 import com.hellokoding.account.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ public class ArtistController {
     @Autowired
     private UserService userService;
     @Autowired
+    private TrackService trackService;
+    @Autowired
     private PlaylistService playlistService;
 
 
@@ -40,6 +43,12 @@ public class ArtistController {
         List<Track> artistTracks = artistService.getArtistTrackList(artist.getAname());
             boolean isLiking = userService.isLiking(getUidFromSystem(), aid);
         List<User> fans = userService.getFansById(aid);
+        List<Double> scores = new ArrayList<>();
+        artistTracks.forEach((track) -> {
+            Long tid = track.getId();
+            scores.add(trackService.getAverageScore(tid).isPresent() ? trackService.getAverageScore(tid).get() :(Double) 0d);
+        });
+        theModel.addAttribute("scores", scores);
         theModel.addAttribute("playlists",playlists);
         theModel.addAttribute("isLiking", isLiking);
         theModel.addAttribute("numberOfFans", fans.size());

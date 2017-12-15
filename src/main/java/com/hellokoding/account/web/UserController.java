@@ -37,6 +37,8 @@ public class UserController {
     @Autowired
     private ArtistService artistService;
 
+    @Autowired
+    private RecommendService recommendService;
 
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
@@ -75,6 +77,27 @@ public class UserController {
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model) {
         List<Track> recommendByRecentListen = trackService.recommendByRecentListen(getUidFromSystem());
+        List<Long> recommendTrackId = recommendService.getRecommendTrack();
+        List<Track> recommendTrack = new ArrayList<>(recommendTrackId.size());
+        recommendTrackId.forEach((tid) -> {
+            Track theTrack = trackService.findById(tid);
+            recommendTrack.add(theTrack);
+        });
+        List<Track> resultRecommend;
+        if (recommendTrack.size() > 10) {
+            resultRecommend = new ArrayList<>(recommendTrack.subList(0,10));
+        }
+        else {
+            resultRecommend = new ArrayList<>();
+            resultRecommend.addAll(recommendTrack);
+        }
+        List<Double> scores = new ArrayList<>();
+        resultRecommend.forEach((track) -> {
+            Long tid = track.getId();
+            scores.add(trackService.getAverageScore(tid).isPresent() ? trackService.getAverageScore(tid).get() :(Double) 0d);
+        });
+        model.addAttribute("scores",scores);
+        model.addAttribute("recommendTrack", resultRecommend);
         model.addAttribute("recommendByRecentListen", recommendByRecentListen);
         return "welcome";
     }

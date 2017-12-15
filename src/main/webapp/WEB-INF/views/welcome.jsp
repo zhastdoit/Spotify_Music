@@ -23,37 +23,47 @@
 
             <h3>Recommend for you</h3>
             <div class="col-sm-6">
-            <h4>Tracks</h4>
+            <h4>Highly Popular</h4>
                 <table class="table table-hover">
                     <tr>
-                        <th>Track Name</th>
-                        <th>Duration</th>
+                        <th>NAME</th>
+                        <th>ARTIST</th>
+                        <th>GENRE</th>
+                        <th>LENGTH</th>
+                        <th>SCORE</th>
                     </tr>
 
                     <!-- loop over and print our customers -->
-                    <c:forEach var="track" items="${recommendByRecentListen}">
+                    <c:forEach var="track" items="${recommendTrack}" varStatus="loop">
                         <tr>
-                            <td><a href="/track/${track.id}"> ${track.ttitle} </td>
-                            <td><a href="/track/${track.id}"> ${track.artist.aname} </td>
+                            <td><a href="/track/${track.id}"> ${track.ttitle} </a></td>
+                            <td><a href="/track/${track.id}"> ${track.artist.aname} </a></td>
+                            <td><a href="/track/${track.id}"> ${track.genre} </a></td>
+                            <td> ${(track.tduration/60).intValue().toString()}:${(track.tduration%60).intValue()} </td>
+                            <td> ${scores.get(loop.index)} </td>
                         </tr>
                     </c:forEach>
                 </table>
             </div>
             <div class="col-sm-6">
-                <h4>Artists</h4>
+                <h4>History</h4>
                 <table class="table table-hover">
                     <tr>
-                        <th>Name</th>
-                        <th>Duration</th>
-                        <th>Genre</th>
+                        <th>NAME</th>
+                        <th>ARTIST</th>
+                        <th>GENRE</th>
+                        <th>LENGTH</th>
+                        <th>SCORE</th>
                     </tr>
 
                     <!-- loop over and print our customers -->
-                    <c:forEach var="artist" items="${recommendByRecentListen}">
+                    <c:forEach var="track" items="${recommendByRecentListen}" varStatus="loop">
                         <tr>
-                            <td><a href="/artist/${artist.id}"> ${artist.ttitle} </td>
-                            <td><a href="/artist/${artist.id}"> ${artist.tduration} </td>
-                            <td><a href="/artist/${artist.id}"> ${artist.genre} </td>
+                            <td><a href="/track/${track.id}"> ${track.ttitle} </a></td>
+                            <td><a href="/track/${track.id}"> ${track.artist.aname} </a></td>
+                            <td><a href="/track/${track.id}"> ${track.genre} </a></td>
+                            <td> ${(track.tduration/60).intValue().toString()}:${(track.tduration%60).intValue()} </td>
+                            <td> ${scores.get(loop.index)} </td>
                         </tr>
                     </c:forEach>
                 </table>
