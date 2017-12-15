@@ -37,7 +37,7 @@
                 </table>
             </div>
             <div class="col-sm-6">
-                <h4>History</h4>
+                <h4>The Artist You Listen</h4>
                 <table class="table table-hover">
                     <tr>
                         <th>Name</th>

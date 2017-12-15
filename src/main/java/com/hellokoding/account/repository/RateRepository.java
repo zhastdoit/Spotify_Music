@@ -16,7 +16,4 @@ public interface RateRepository extends JpaRepository<Rate, Long> {
     Optional<Double> getAverageScore(@Param("tid") Long tid);
 
 
-    List<Rate> findAllByOrderByScoreDesc();
-
-
 }

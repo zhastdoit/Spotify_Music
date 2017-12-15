@@ -50,6 +50,7 @@ public class UserController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+        userForm.setUimage("https://dncache-mauganscorp.netdna-ssl.com/thumbseg/378/378006-bigthumbnail.jpg");
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -78,18 +79,9 @@ public class UserController {
     public String welcome(Model model) {
         List<Track> recommendByRecentListen = trackService.recommendByRecentListen(getUidFromSystem());
         List<Long> recommendTrackId = recommendService.getRecommendTrack();
-        List<Track> recommendTrack = new ArrayList<>(recommendTrackId.size());
-        recommendTrackId.forEach((tid) -> {
-            Track theTrack = trackService.findById(tid);
-            recommendTrack.add(theTrack);
-        });
-        List<Track> resultRecommend;
-        if (recommendTrack.size() > 10) {
-            resultRecommend = new ArrayList<>(recommendTrack.subList(0,10));
-        }
-        else {
-            resultRecommend = new ArrayList<>();
-            resultRecommend.addAll(recommendTrack);
+        List<Track> resultRecommend = new ArrayList<>(10);
+        for (int i = 0; i < 10; i++) {
+            resultRecommend.add(trackService.findById(recommendTrackId.get(i)));
         }
         List<Double> scores = new ArrayList<>();
         resultRecommend.forEach((track) -> {
