@@ -48,4 +48,8 @@ public class PlaylistServiceImp implements PlaylistService {
         TrackInPlaylist obj = trackInPlaylistRepository.getByPidAndTid(pid,tid);
         trackInPlaylistRepository.delete(obj);
     }
+    @Override
+    public void removePlaylist(Long pid) {
+        playlistRepository.delete(playlistRepository.getPlaylistsByPid(pid));
+    }
 }

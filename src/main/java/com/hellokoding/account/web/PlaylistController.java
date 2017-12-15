@@ -116,4 +116,10 @@ public class PlaylistController {
         User user = userService.findByUsername(username);
         return user.getId();
     }
+
+    @RequestMapping(value = {"/remove/{pid}"}, method = RequestMethod.GET)
+    public String removePlaylist(@PathVariable("pid") Long pid, Model theModel) {
+        playlistService.removePlaylist(pid);
+        return "redirect:/playlist/all";
+    }
 }
