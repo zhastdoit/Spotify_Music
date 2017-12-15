@@ -1,9 +1,6 @@
 package com.hellokoding.account.web;
 
-import com.hellokoding.account.model.Artist;
-import com.hellokoding.account.model.Rate;
-import com.hellokoding.account.model.Track;
-import com.hellokoding.account.model.User;
+import com.hellokoding.account.model.*;
 import com.hellokoding.account.service.ArtistService;
 import com.hellokoding.account.service.FindUsername;
 import com.hellokoding.account.service.TrackService;
@@ -30,6 +27,7 @@ public class TrackController {
 
     @Autowired
     private UserService userService;
+
 
     @RequestMapping(value = {"/all"}, method = RequestMethod.GET)
     public String showAllTrack(Model theModel) {
@@ -80,7 +78,7 @@ public class TrackController {
     public String getArtistTrack(@PathVariable("id") Long id, Model theModel) {
         Track theTrack = trackService.findById(id);
         Double score = trackService.getAverageScore(theTrack.getId()).isPresent() ? trackService.getAverageScore(theTrack.getId()).get() : 0d;
-
+        trackService.saveListen(getUidFromSystem(), id);
         theModel.addAttribute("artist",theTrack.getArtist());
         theModel.addAttribute("track", theTrack);
         theModel.addAttribute("avgScore", score);
@@ -100,4 +98,9 @@ public class TrackController {
         return "redirect:/track/" + id;
     }
 
+    private Long getUidFromSystem() {
+        String username = FindUsername.findLoggedInUsername();
+        User user = userService.findByUsername(username);
+        return user.getId();
+    }
 }

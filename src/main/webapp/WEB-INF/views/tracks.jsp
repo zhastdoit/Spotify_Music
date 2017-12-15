@@ -1,5 +1,4 @@
 <%@ include file="parts/header.jsp" %>
-<body>
 <div class="container">
     <h2>Tracks</h2>
     <div style="overflow-y: auto">
@@ -21,7 +20,7 @@
                     </button> </td>
                     <td><a href="/track/${track.id}"> ${track.ttitle} </td>
 
-                    <td><a href="/track/${track.genre}"> ${track.genre} </td>
+                    <td><a href="/track/${track.id}"> ${track.genre} </td>
                     <td><a href="/artist/${track.artist.id}"> ${track.artist.aname} </td>
                     <td> ${(track.tduration/60).intValue().toString()}:${(track.tduration%60).intValue()} </td>
                     <%--<td> ${scores.get(track.id.intValue() - 1)} </td>--%>

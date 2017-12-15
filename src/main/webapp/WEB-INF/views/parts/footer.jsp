@@ -6,7 +6,7 @@
     <div class="container">
         <ul class="nav navbar-nav" style="min-height:28px; height: 28px">
             <li>
-                <p style="color: #9d9d9d"> Project | Spotify Music </p>
+                <p style="color: #9d9d9d"> Project | Spotify Music | <a href="https://github.com/zhastdoit/Spotify_Music">github</a></p>
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">

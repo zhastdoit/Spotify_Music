@@ -15,7 +15,7 @@
         <tr>
             <td><a href="/track/${tempRate.tid}"> ${tempRate.uid} </td>
             <td><a href="/track/${tempRate.tid}"> ${tempRate.tid} </td>
-            <td><a href="/track/${tempRate.tid}">s ${tempRate.score} </td>
+            <td><a href="/track/${tempRate.tid}"> ${tempRate.score} </td>
         </tr>
 
     </c:forEach>
