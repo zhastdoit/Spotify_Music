@@ -1,8 +1,10 @@
 package com.hellokoding.account.service;
 
 import com.hellokoding.account.model.Playlist;
+import com.hellokoding.account.model.TrackInPlaylist;
 import com.hellokoding.account.model.User;
 import com.hellokoding.account.repository.PlaylistRepository;
+import com.hellokoding.account.repository.TrackInPlaylistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,9 @@ public class PlaylistServiceImp implements PlaylistService {
 
     @Autowired
     private PlaylistRepository playlistRepository;
+
+    @Autowired
+    private TrackInPlaylistRepository trackInPlaylistRepository;
 
     @Autowired
     private UserService userService;
@@ -31,5 +36,10 @@ public class PlaylistServiceImp implements PlaylistService {
     @Override
     public Playlist getPlaylistWithPid(Long pid) {
         return playlistRepository.getPlaylistsByPid(pid);
+    }
+
+    @Override
+    public void saveTrackInPlaylist(TrackInPlaylist obj) {
+        trackInPlaylistRepository.save(obj);
     }
 }

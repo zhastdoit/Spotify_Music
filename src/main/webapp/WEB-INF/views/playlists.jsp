@@ -2,8 +2,9 @@
 <body>
 <div class="container">
 
+    <h2>My Playlists</h2>
     <button type="button" class="btn btn-default pull-right"
-            onclick="window.location.href='newplaylist';return false;">+ NEW PLAYLIST</button>
+            onclick="window.location.href='newplaylist';return false;">+ New Playlist</button>
 
     <table class="table table-hover">
         <tr>

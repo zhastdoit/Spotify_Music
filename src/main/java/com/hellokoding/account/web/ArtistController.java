@@ -1,10 +1,12 @@
 package com.hellokoding.account.web;
 
 import com.hellokoding.account.model.Artist;
+import com.hellokoding.account.model.Playlist;
 import com.hellokoding.account.model.Track;
 import com.hellokoding.account.model.User;
 import com.hellokoding.account.service.ArtistService;
 import com.hellokoding.account.service.FindUsername;
+import com.hellokoding.account.service.PlaylistService;
 import com.hellokoding.account.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,14 +29,18 @@ public class ArtistController {
     private ArtistService artistService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private PlaylistService playlistService;
 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getArtistDetails(@PathVariable("id") Long aid, Model theModel) {
         Artist artist = artistService.getArtistById(aid);
+        List<Playlist> playlists = playlistService.getUserPlaylist(getUidFromSystem());
         List<Track> artistTracks = artistService.getArtistTrackList(artist.getAname());
             boolean isLiking = userService.isLiking(getUidFromSystem(), aid);
         List<User> fans = userService.getFansById(aid);
+        theModel.addAttribute("playlists",playlists);
         theModel.addAttribute("isLiking", isLiking);
         theModel.addAttribute("numberOfFans", fans.size());
         theModel.addAttribute("artist", artist);

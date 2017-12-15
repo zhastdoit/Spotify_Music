@@ -2,6 +2,7 @@ package com.hellokoding.account.web;
 
 import com.hellokoding.account.model.Playlist;
 import com.hellokoding.account.model.Track;
+import com.hellokoding.account.model.TrackInPlaylist;
 import com.hellokoding.account.model.User;
 import com.hellokoding.account.service.FindUsername;
 import com.hellokoding.account.service.PlaylistService;
@@ -59,16 +60,55 @@ public class PlaylistController {
     @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
     public String getTrackListByPlaylist(@PathVariable("id") Long id, Model theModel) {
         Playlist thePlaylist = playlistService.getPlaylistWithPid(id);
-        List<Track> playlistTrack = trackService.getTrackByPlaylist(id);
+        List<Track> playlistTrack = new ArrayList<>();
         List<Double> scores = new ArrayList<>();
-        playlistTrack.forEach((track) -> {
-            Long tid = track.getId();
-            scores.add(trackService.getAverageScore(tid).isPresent() ? trackService.getAverageScore(tid).get() :(Double) 0d);
-        });
+        String alert = "";
+        if(!thePlaylist.getUid().equals(getUidFromSystem())) {
+            alert = "&#128275; This is a private playlist";
+        } else {
+            playlistTrack = trackService.getTrackByPlaylist(id);
+            playlistTrack.forEach((track) -> {
+                Long tid = track.getId();
+                scores.add(trackService.getAverageScore(tid).isPresent() ? trackService.getAverageScore(tid).get() : (Double) 0d);
+            });
+        }
         theModel.addAttribute("playlist", thePlaylist);
+        theModel.addAttribute("owner",userService.findById(thePlaylist.getUid()));
         theModel.addAttribute("trackList", playlistTrack);
         theModel.addAttribute("scores", scores);
+        theModel.addAttribute("alert", alert);
         return "playlist-details";
     }
 
+
+    @RequestMapping(value = {"/{pid}/addToPlaylist/{tid}"}, method = RequestMethod.GET)
+    public String getTrackListByPlaylist(@PathVariable("pid") Long pid, @PathVariable("tid") Long tid, Model theModel) {
+        Playlist playlist = playlistService.getPlaylistWithPid(pid);
+        TrackInPlaylist trackInPlaylist = new TrackInPlaylist(pid,tid);
+        playlistService.saveTrackInPlaylist(trackInPlaylist);
+        String alert = "";
+        List<Track> playlistTrack = new ArrayList<>();
+        List<Double> scores = new ArrayList<>();
+        if(!playlist.getUid().equals(getUidFromSystem())) {
+            alert = "&#128275; This is a private playlist";
+        } else {
+            playlistTrack = trackService.getTrackByPlaylist(pid);
+            playlistTrack.forEach((track) -> {
+                Long id = track.getId();
+                scores.add(trackService.getAverageScore(id).isPresent() ? trackService.getAverageScore(id).get() : (Double) 0d);
+            });
+        }
+        theModel.addAttribute("playlist", playlist);
+        theModel.addAttribute("owner",userService.findById(playlist.getUid()));
+        theModel.addAttribute("trackList", playlistTrack);
+        theModel.addAttribute("scores", scores);
+        theModel.addAttribute("alert", alert);
+        return "redirect:/playlist/"+pid.toString();
+    }
+
+    private Long getUidFromSystem() {
+        String username = FindUsername.findLoggedInUsername();
+        User user = userService.findByUsername(username);
+        return user.getId();
+    }
 }

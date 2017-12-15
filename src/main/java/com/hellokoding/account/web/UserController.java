@@ -26,6 +26,9 @@ public class UserController {
     private UserValidator userValidator;
 
     @Autowired
+    private PlaylistService playlistService;
+
+    @Autowired
     private TrackService trackService;
 
     @Autowired
@@ -163,10 +166,12 @@ public class UserController {
     public String userProfile(@PathVariable("id") Long fid, Model theModel) {
         User user = userService.findById(fid);
         boolean isFollowing = userService.isFollowing(getUidFromSystem(), fid);
+        List<Playlist> playlists = playlistService.getUserPlaylist(fid);
         List<User> followings = userService.getFollowingsById(user.getId());
         List<User> followers = userService.getFollowersById(user.getId());
         theModel.addAttribute("user", user);
         theModel.addAttribute("isFollowing", isFollowing);
+        theModel.addAttribute("playlists",playlists);
         theModel.addAttribute("numberOfFollowings", followings.size());
         theModel.addAttribute("numberOfFollowers", followers.size());
         return "user-profile";
@@ -177,6 +182,7 @@ public class UserController {
         Long uid = getUidFromSystem();
         User user = userService.findById(fid);
         boolean isFollowing = userService.isFollowing(uid, fid);
+        List<Playlist> playlists = playlistService.getUserPlaylist(fid);
         List<User> followings = userService.getFollowingsById(user.getId());
         List<User> followers = userService.getFollowersById(user.getId());
         if(followStatus) {
@@ -186,6 +192,7 @@ public class UserController {
         }
         theModel.addAttribute("user", user);
         theModel.addAttribute("isFollowing", isFollowing);
+        theModel.addAttribute("playlists",playlists);
         theModel.addAttribute("numberOfFollowings", followings.size());
         theModel.addAttribute("numberOfFollowers", followers.size());
         return "redirect:/user/"+fid;
@@ -205,5 +212,10 @@ public class UserController {
         String username = FindUsername.findLoggedInUsername();
         User user = userService.findByUsername(username);
         return user.getId();
+    }
+
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    public String errorPage(Model theModel) {
+        return "not-found-page";
     }
 }
