@@ -20,7 +20,8 @@ public interface TrackService {
     List<Track> getTrackByAlbum(Long alid);
     List<Listen> getListenByUserID(Long uid);
     List<Track> recommendByRecentListen(Long uid);
-
+    List<Track> getListenedTracksByUid(Long uid);
     List<Track> getTrackByKeyword(String keyword);
     List<Track> getTracksByGenreKeyword(String genre);
+    List<Track> getFollowingsListenTracksByUid(Long uid);
 }

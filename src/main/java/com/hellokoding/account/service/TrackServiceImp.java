@@ -1,14 +1,12 @@
 package com.hellokoding.account.service;
 
-import com.hellokoding.account.model.Artist;
-import com.hellokoding.account.model.Listen;
-import com.hellokoding.account.model.Rate;
-import com.hellokoding.account.model.Track;
+import com.hellokoding.account.model.*;
 import com.hellokoding.account.repository.*;
 import com.hellokoding.account.repository.AlbumRepository;
 import com.hellokoding.account.repository.PlaylistRepository;
 import com.hellokoding.account.repository.RateRepository;
 import com.hellokoding.account.repository.TrackRepository;
+import org.omg.PortableServer.LIFESPAN_POLICY_ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +19,13 @@ import java.util.Optional;
 public class TrackServiceImp implements TrackService {
 
     @Autowired
+    private ArtistRepository artistRepository;
+
+    @Autowired
     private TrackRepository trackRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private RateRepository rateRepository;
@@ -36,7 +40,7 @@ public class TrackServiceImp implements TrackService {
     private AlbumRepository albumRepository;
 
     @Autowired
-    private ArtistRepository artistRepository;
+    private FollowRepository followRepository;
 
     @Override
     public Track findById(Long id) {
@@ -95,21 +99,16 @@ public class TrackServiceImp implements TrackService {
     public List<Track> recommendByRecentListen (Long uid) {
         //List<Listen> listenHistory = getListenByUserID(uid);
         List<Track> recommendation = new ArrayList<>();
-        Listen mostRecentListen = listenRepository.getTopByTidOrderByTimestampDesc(uid);
+        List<Listen> mostRecentListen = listenRepository.getTop3ByUidOrderByTimestampDesc(uid);
         if(mostRecentListen == null) {
-            recommendation.add(trackRepository.findById(1L));
+            recommendation.addAll(trackRepository.getTop10ByArtist(artistRepository.getArtistFromId(1L)));
             return recommendation;
         }
-        Artist mostRecentArtist = trackRepository.findById(mostRecentListen.getTid()).getArtist();
-        List<Track> trackList = trackRepository.getAllByArtist(mostRecentArtist);
-        int counter = 0;
-        for (Track t : trackList) {
-            recommendation.add(t);
-            counter++;
-            if (counter>=5) {
-                break;
-            }
-        }
+        mostRecentListen.stream().forEach(listen -> {
+            Artist mostRecentArtist = trackRepository.findById(listen.getTid()).getArtist();
+            recommendation.addAll(trackRepository.getTop3ByArtist(mostRecentArtist));
+        });
+        recommendation.add(trackRepository.findById(mostRecentListen.get(0).getTid()));
         return recommendation;
     }
 
@@ -128,5 +127,23 @@ public class TrackServiceImp implements TrackService {
         return trackRepository.getTop10TracksByGenreContains(genre);
     }
 
+    @Override
+    public List<Track> getListenedTracksByUid(Long uid) {
+        List<Listen> listenHistory = listenRepository.getTop10ByUidOrderByTimestampDesc(uid);
+        List<Track> tracks = new ArrayList<>();
+        listenHistory.stream().forEach(l -> tracks.add(trackRepository.findById(l.getTid())));
+        return tracks;
+    }
 
+    @Override
+    public List<Track> getFollowingsListenTracksByUid(Long uid) {
+        List<Follow> followings = followRepository.getTop5ByUidOrderByTimestampDesc(uid);
+        List<Track> tracks = new ArrayList<>();
+        followings.stream().forEach(f -> {
+            List<Track> list = getListenedTracksByUid(f.getUid());
+            tracks.add(list.get(0));
+            tracks.add(list.get(1));
+        });
+        return tracks;
+    }
 }

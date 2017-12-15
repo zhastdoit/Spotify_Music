@@ -17,5 +17,10 @@ public interface ListenRepository extends JpaRepository<Listen, Long> {
 
     Listen countListenByTid(Long tid);
 
-    Listen getTopByTidOrderByTimestampDesc(Long tid);
+    Listen getTop1ByTidOrderByTimestampDesc(Long tid);
+
+    List<Listen> getTop3ByUidOrderByTimestampDesc(Long uid);
+
+    List<Listen> getTop10ByUidOrderByTimestampDesc (Long uid);
+
 }

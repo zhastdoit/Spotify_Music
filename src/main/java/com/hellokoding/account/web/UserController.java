@@ -88,9 +88,13 @@ public class UserController {
             Long tid = track.getId();
             scores.add(trackService.getAverageScore(tid).isPresent() ? trackService.getAverageScore(tid).get() :(Double) 0d);
         });
+        List<Track> history = trackService.getListenedTracksByUid(getUidFromSystem());
+        List<Track> followingHistory = trackService.getFollowingsListenTracksByUid(getUidFromSystem());
         model.addAttribute("scores",scores);
         model.addAttribute("recommendTrack", resultRecommend);
         model.addAttribute("recommendByRecentListen", recommendByRecentListen);
+        model.addAttribute("history", history);
+        model.addAttribute("followingHistory",followingHistory);
         return "welcome";
     }
 

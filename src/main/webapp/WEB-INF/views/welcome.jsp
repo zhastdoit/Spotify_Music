@@ -11,7 +11,7 @@
     </c:if>
 
     <div class="tab-content">
-        <div id="home">
+        <div class="row">
             <h3>Recommend for you</h3>
             <div class="col-sm-6">
                 <h4>Highly Popular</h4>
@@ -49,6 +49,53 @@
 
                     <!-- loop over and print our customers -->
                     <c:forEach var="track" items="${recommendByRecentListen}" varStatus="loop">
+                        <tr>
+                            <td><a href="/track/${track.id}"> ${track.ttitle} </a></td>
+                            <td><a href="/track/${track.id}"> ${track.artist.aname} </a></td>
+                            <td><a href="/track/${track.id}"> ${track.genre} </a></td>
+                            <td> ${(track.tduration/60).intValue().toString()}:${(track.tduration%60).intValue()} </td>
+                            <td> ${scores.get(loop.index)} </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <h4>Recent listening</h4>
+                <table class="table table-hover">
+                    <tr>
+                        <th>Name</th>
+                        <th>Artist</th>
+                        <th>Genre</th>
+                        <th>Length</th>
+                        <th>Score</th>
+                    </tr>
+
+                    <!-- loop over and print our customers -->
+                    <c:forEach var="track" items="${history}" varStatus="loop">
+                        <tr>
+                            <td><a href="/track/${track.id}"> ${track.ttitle} </a></td>
+                            <td><a href="/track/${track.id}"> ${track.artist.aname} </a></td>
+                            <td><a href="/track/${track.id}"> ${track.genre} </a></td>
+                            <td> ${(track.tduration/60).intValue().toString()}:${(track.tduration%60).intValue()} </td>
+                            <td> ${scores.get(loop.index)} </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </div>
+            <div class="col-sm-6">
+                <h4>Your Following's Taste</h4>
+                <table class="table table-hover">
+                    <tr>
+                        <th>Name</th>
+                        <th>Artist</th>
+                        <th>Genre</th>
+                        <th>Length</th>
+                        <th>Score</th>
+                    </tr>
+
+                    <c:forEach var="track" items="${followingHistory}" varStatus="loop">
                         <tr>
                             <td><a href="/track/${track.id}"> ${track.ttitle} </a></td>
                             <td><a href="/track/${track.id}"> ${track.artist.aname} </a></td>
