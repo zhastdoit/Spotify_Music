@@ -29,7 +29,6 @@
                         <li><a href="/album/all">Albums</a></li>
                         <li><a href="/track/all">Tracks<span class="sr-only">(current)</span></a></li>
                         <li><a href="/artist/all">Artists</a></li>
-                        <li><a href="/playlist/all">Playlist</a></li>
                     </ul>
                     <form method="POST" action="${contextPath}/search" class="navbar-form navbar-left">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -42,8 +41,9 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${pageContext.request.userPrincipal.name}<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/myprofile">MyProfile</a></li>
-                                <li><a href="/artist/favorite">Favorite Artist</a></li>
+                                <li><a href="/myprofile">My Profile</a></li>
+                                <li><a href="/playlist/all">My Playlists</a></li>
+                                <li><a href="/artist/favorite">My liked Artists</a></li>
                                 <li><a href="/followers">My Followers</a></li>
                                 <li><a href="/followings">My Followings</a></li>
                                 <li><a href="/rates">My Rates</a></li>
