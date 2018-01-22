@@ -1,4 +1,6 @@
 # Spotify Music System
+### An online music system similiar to spotify built with Spring MVC.
+
 
 ## Prerequisites
 - JDK 1.8 or later
